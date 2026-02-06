@@ -1,352 +1,229 @@
-# Workspace Migration Angular 5 → 20
+# Migration Angular Dev Kit
 
-> Workspace de coordination pour la migration progressive d'Angular 5.2.0 vers Angular 20
+Infrastructure et outils pour la migration Angular 5 → 20 des repositories `pwc-ui-shared` et `pwc-ui`.
 
 ## 📋 Vue d'Ensemble
 
-Ce workspace coordonne la migration de deux repositories Angular :
-- **pwc-ui-shared-v4-ia** : Bibliothèque de composants partagés (à migrer EN PREMIER)
-- **pwc-ui-v4-ia** : Application principale (à migrer EN SECOND)
+Ce repository contient:
+- **Infrastructure Kiro** : Système de gestion de migration avec steering files, specs et hooks
+- **Gate Playwright** : Tests E2E automatisés pour valider chaque palier de migration
+- **Scripts d'Outils** : Utilitaires PowerShell pour gestion des versions Node.js, snapshots, etc.
+- **Documentation** : Guides complets pour chaque palier de migration
 
-## 🏗️ Structure du Workspace
-
-```
-C:\repo_hps\
-│
-├── 📁 pwc-ui-shared-v4-ia/          # Bibliothèque (NE PAS polluer)
-├── 📁 pwc-ui-v4-ia/                 # Application (NE PAS polluer)
-│
-├── 📁 scripts_outils_ia/            # Scripts temporaires et tests
-│   └── (nettoyer après usage)       # ⚠️ Supprimer les fichiers temporaires
-│
-├── 📁 docs_outils_ia/               # Documentation du projet
-│   ├── JOURNAL-COORDINATION.md      # 📝 Journal de bord (MAJ quotidienne)
-│   ├── ETAT-MIGRATION.md            # 📊 Suivi de progression
-│   ├── GUIDE-*.md                   # 📚 Guides de référence
-│   └── ANALYSE-*.md                 # 🔍 Analyses techniques
-│
-├── 🤖 .claude                       # Config Claude (orchestrateur)
-├── 🤖 .cursorrules                  # Config Cursor IDE
-├── 🤖 .vibe                         # Config Vibe AI
-├── 🤖 .gemini                       # Config Google Gemini
-├── 🤖 .opencode                     # Config OpenCode
-├── 🤖 .codex                        # Config OpenAI Codex
-│
-├── 📄 README.md                     # Ce fichier
-└── 📄 GUIDE-DEMARRAGE-RAPIDE.md     # Guide de démarrage existant
-```
-
-## 🎯 Stratégie de Migration (5 Phases)
+## 🏗️ Architecture
 
 ```
-Phase 1: Angular 5 → 8  (Foundation)     [5→6→7→8]
-Phase 2: Angular 8 → 12 (Ivy Engine)     [8→9→10→11→12]
-Phase 3: Angular 12 → 15 (Standalone)    [12→13→14→15]
-Phase 4: Angular 15 → 17 (Signals)       [15→16→17]
-Phase 5: Angular 17 → 20 (Zoneless)      [17→18→19→20]
-```
-
-**⚠️ Ordre de migration CRITIQUE** :
-1. **D'ABORD** : pwc-ui-shared-v4-ia (bibliothèque)
-2. **ENSUITE** : pwc-ui-v4-ia (application)
-
-Ne JAMAIS inverser cet ordre !
-
-## 🤖 Assistants IA Configurés
-
-Plusieurs assistants IA sont configurés pour ce projet. Chacun partage les mêmes contraintes et objectifs :
-
-### Configuration Commune à Tous les Assistants
-
-#### ✅ Règles d'Or
-1. **Pas de droits admin** : Pas de `sudo`, pas de `npm install -g`
-2. **Repos propres** : Aucun fichier de test/debug dans pwc-ui-shared-v4-ia/ ou pwc-ui-v4-ia/
-3. **Documentation obligatoire** : Mise à jour quotidienne de JOURNAL-COORDINATION.md
-4. **TDD systématique** : Red → Green → Refactor → Commit
-5. **Économie de tokens** : Mode stateful, orchestration, réutilisation
-
-#### 📝 Documentation Requise
-
-**Après chaque action significative**, mettre à jour `docs_outils_ia/JOURNAL-COORDINATION.md` :
-
-```markdown
-## [YYYY-MM-DD] - [Titre de l'Action]
-
-**Repos concernés** : pwc-ui-shared-v4-ia / pwc-ui-v4-ia / les deux
-
-**Action effectuée** :
-- [Description détaillée]
-
-**Résultat** :
-- Succès ✅ / Échec ❌ / Partiel ⏳
-- [Détails]
-
-**Problèmes rencontrés** :
-- [Problème] → [Solution]
-
-**Prochaine étape** :
-- [Action suivante]
-
-**Temps passé** : X heures
-```
-
-### Fichiers de Configuration
-
-| Fichier | Assistant | Usage Principal |
-|---------|-----------|----------------|
-| `.claude` | Claude | Orchestration, décisions complexes, documentation |
-| `.cursorrules` | Cursor | Édition de code, refactoring, IDE |
-| `.vibe` | Vibe AI | Assistance développement |
-| `.gemini` | Google Gemini | Analyse, suggestions |
-| `.opencode` | OpenCode | Génération de code |
-| `.codex` | OpenAI Codex | Complétion de code |
-
-Tous les assistants suivent les mêmes règles et contraintes définies dans leurs fichiers de configuration respectifs.
-
-## 🧪 Méthodologie : Test-Driven Development (TDD)
-
-**Obligatoire pour tous les changements de code** :
-
-1. 🔴 **Red** : Écrire un test qui échoue
-2. 🟢 **Green** : Implémenter le minimum pour passer le test
-3. 🔵 **Refactor** : Améliorer le code (tests restent verts)
-4. 💾 **Commit** : Sauvegarder avec un message descriptif
-
-## ✅ Checklist par Palier de Migration
-
-- [ ] Audit des dépendances actuelles
-- [ ] Écriture des tests (TDD)
-- [ ] Mise à jour de package.json
-- [ ] Installation des dépendances (`npm install`)
-- [ ] Correction des breaking changes
-- [ ] Tests unitaires (tous passent ✅)
-- [ ] Build sans erreur (`npm run build`)
-- [ ] Audit de sécurité (`npm audit`)
-- [ ] Tests manuels des fonctionnalités critiques
-- [ ] Mise à jour JOURNAL-COORDINATION.md
-- [ ] Mise à jour ETAT-MIGRATION.md
-- [ ] Commit avec message descriptif
-- [ ] Planification de l'étape suivante
-
-## 🚫 Contraintes Critiques
-
-### Pas de Droits Administrateur
-
-**Commandes INTERDITES** :
-```bash
-❌ npm install -g <package>
-❌ sudo <command>
-❌ chown / chmod <files>
-```
-
-**Solutions de contournement** :
-```bash
-✅ npm install --save <package>        # Installation locale
-✅ npx <command>                       # Exécution sans installation globale
-✅ npm install --save-dev <dev-tool>   # Outils de dev locaux
-```
-
-### Gestion des Fichiers Temporaires
-
-**Emplacement des scripts de test/debug** :
-
-```bash
-# ❌ INTERDIT
-pwc-ui-shared-v4-ia/test-script.js
-pwc-ui-v4-ia/debug.log
-
-# ✅ CORRECT
-scripts_outils_ia/test-migration.js
-scripts_outils_ia/analyze-deps.sh
-scripts_outils_ia/temp-output.log
-```
-
-**Cycle de vie** :
-1. Créer dans `scripts_outils_ia/`
-2. Utiliser pour tester/débugger
-3. **Supprimer immédiatement après usage**
-4. Si utile pour plus tard → documenter dans `docs_outils_ia/`
-
-## 📊 Suivi de Progression
-
-### Fichiers de Suivi
-
-1. **JOURNAL-COORDINATION.md** : Journal de bord quotidien
-   - Entrées chronologiques (plus récent en haut)
-   - Actions, résultats, problèmes, solutions
-
-2. **ETAT-MIGRATION.md** : Dashboard de progression
-   - Tableaux de progression par phase
-   - Statuts : ✅ Complété | ⏳ En cours | ❌ Non commencé | 🔴 Bloqué
-   - Versions actuelles, blocages, prochaines étapes
-
-### Exemple d'État Actuel
+migration_angular_dev_kit/
+├── .kiro/                          # Infrastructure Kiro
+│   ├── steering/                   # Règles et guides (chargés automatiquement)
+│   ├── specs/                      # Spécifications détaillées par palier
+│   ├── agents/                     # Agents personnalisés
+│   ├── skills/                     # Compétences techniques
+│   ├── hooks/                      # Hooks automatiques
+│   └── state/                      # État de migration
+├── outils_communs/                 # Scripts et outils partagés
+│   ├── start-pwc-ui-shared-4201.bat
+│   ├── start-pwc-ui.bat
+│   └── run-playwright-visual.bat
+├── scripts_outils_ia/              # Scripts PowerShell
+│   ├── Use-Node*.ps1               # Basculer versions Node.js
+│   ├── check-stack.ps1             # Vérifier la stack
+│   └── codemods/                   # Codemods de migration
+├── Documentation/                  # Journal de bord
+└── .gitignore                      # Ignore pwc-ui-shared et pwc-ui
 
 ```
-Phase 1: Angular 5 → 8
-├── 5.2.0 (initial) ✅ [pwc-ui-shared-v4-ia] ✅ [pwc-ui-v4-ia]
-├── 5 → 6           ⏳ [en préparation]
-├── 6 → 7           ❌ [non commencé]
-└── 7 → 8           ❌ [non commencé]
-```
-
-## 🛠️ Commandes Courantes
-
-### Audit et Analyse
-```bash
-# Vérifier les dépendances obsolètes
-npm outdated
-
-# Audit de sécurité
-npm audit
-
-# Analyser la structure du projet
-npm ls <package-name>
-```
-
-### Développement
-```bash
-# Installer les dépendances
-npm install
-
-# Lancer les tests (TDD)
-npm test
-
-# Compiler le projet
-npm run build
-
-# Lancer l'application en mode dev
-npm start
-```
-
-### Git
-```bash
-# Voir les modifications
-git status
-git diff
-
-# Committer les changements
-git add <files>
-git commit -m "feat(migration): descriptif"
-
-# Pousser vers le remote
-git push
-```
-
-## 🎓 Bonnes Pratiques
-
-### Code Quality
-- **SOLID** : Principes de conception orientée objet
-- **DRY** : Don't Repeat Yourself
-- **KISS** : Keep It Simple, Stupid
-- **Clean Code** : Noms significatifs, fonctions courtes
-- **TypeScript strict mode** : Typage fort
-
-### Angular Specifics
-- **OnPush Change Detection** : Optimisation des performances
-- **Unsubscribe Observables** : Éviter les fuites mémoire (pattern takeUntil)
-- **Reactive Forms** : Préférer aux template-driven
-- **Lazy Loading** : Charger les modules à la demande
-- **Standalone Components** : À partir d'Angular 14+
-
-### RxJS Best Practices
-- **Pipeable Operators** : Obligatoire à partir d'Angular 6+
-- **Avoid Nested Subscriptions** : Utiliser les opérateurs (switchMap, mergeMap)
-- **Declarative Approach** : Préférer au style impératif
-- **shareReplay()** : Pour les opérations coûteuses
 
 ## 🚀 Démarrage Rapide
 
-### 1. Premier Audit
+### 1. Cloner le Repository
+
 ```bash
-cd C:\repo_hps\pwc-ui-shared-v4-ia
-npm install
-npm audit
-npm outdated
+git clone https://github.com/bigmoletos/migration_angular_dev_kit.git
+cd migration_angular_dev_kit
 ```
 
-### 2. Documenter l'État Initial
+### 2. Ajouter les Repos Bitbucket
+
+Les deux repos Bitbucket (`pwc-ui-shared` et `pwc-ui`) doivent être clonés séparément:
+
 ```bash
-# Mettre à jour docs_outils_ia/ETAT-MIGRATION.md
-# avec les versions actuelles et l'état des builds
+# Cloner pwc-ui-shared
+git clone <bitbucket-url-pwc-ui-shared> pwc-ui-shared
+
+# Cloner pwc-ui
+git clone <bitbucket-url-pwc-ui> pwc-ui
 ```
 
-### 3. Planifier la Première Migration (5→6)
-- Lire le guide officiel : https://update.angular.io/?v=5.0-6.0
-- Identifier les breaking changes
-- Écrire les tests pour les fonctionnalités existantes (TDD)
-- Créer un script de migration dans scripts_outils_ia/
+### 3. Configurer Node.js
 
-### 4. Exécuter la Migration
-- Suivre la checklist complète
-- Tester à chaque étape
-- Documenter les problèmes et solutions
+```powershell
+# Basculer vers Node v10 (Angular 5)
+Use-Node10
 
-## 📚 Documentation de Référence
+# Vérifier
+node --version  # v10.24.1
+```
 
-### Guides Internes
-- `docs_outils_ia/GUIDE-CONTEXT-OPTIMIZER.md` : Optimisation du contexte et tokens
-- `docs_outils_ia/GUIDE-SKILLS-ACP-FINDTOOLS.md` : Utilisation des skills
-- `docs_outils_ia/ANALYSE-ARCHITECTURE-REPO.md` : Architecture des repos
+### 4. Lancer les Applications
 
-### Ressources Externes
-- [Angular Update Guide](https://update.angular.io/) : Guide officiel de migration
-- [RxJS Migration Guide](https://rxjs.dev/guide/v6/migration) : Migration RxJS 5→6
-- [Angular Blog](https://blog.angular.io/) : Annonces et nouveautés
+```powershell
+# Terminal 1 : pwc-ui-shared sur port 4201
+.\outils_communs\start-pwc-ui-shared-4201.bat
 
-## 🆘 En Cas de Problème
+# Terminal 2 : pwc-ui sur port 4200
+.\outils_communs\start-pwc-ui.bat
+```
 
-### Blocages Courants
+### 5. Lancer les Tests Playwright
 
-| Problème | Solution |
-|----------|----------|
-| "Permission denied" | Éviter sudo, installer localement |
-| Conflits de dépendances | Utiliser `npm ls` pour débugger, résoudre incrémentalement |
-| Tests qui échouent | Revenir en arrière, isoler le problème, TDD |
-| Build errors | Vérifier les breaking changes du guide de migration |
-| Token limits | Mode stateful, résumer le contexte, utiliser l'orchestrateur |
+```powershell
+# Tests visuels avec --headed
+.\outils_communs\run-playwright-visual.bat
 
-### Procédure de Déblocage
+# Ou directement
+cd pwc-ui-shared/pwc-ui-shared-v4-ia
+npx playwright test e2e/tests/components-from-inventory.spec.ts --headed
+```
 
-1. **Documenter** le problème dans JOURNAL-COORDINATION.md
-2. **Analyser** les logs d'erreur
-3. **Rechercher** des solutions (guides de migration, Stack Overflow)
-4. **Tester** dans scripts_outils_ia/ avant d'appliquer
-5. **Demander** validation si incertain (AskUserQuestion)
-6. **Documenter** la solution pour référence future
+## 📚 Documentation
 
-## 🤝 Coordination Multi-Assistants
+### Steering Files (Règles Automatiques)
 
-Si plusieurs assistants IA travaillent simultanément :
-- Utiliser les mêmes fichiers de documentation (JOURNAL, ETAT)
-- Éviter les duplications de travail
-- Respecter les mêmes contraintes
-- Communiquer via les fichiers partagés
+| Fichier | Sujet | Priorité |
+|---------|-------|----------|
+| `00-agent-router.md` | Routage intelligent | 100 |
+| `01-project-overview.md` | Vue d'ensemble projet | 95 |
+| `02-migration-angular-rules.md` | Règles migration Angular | 95 |
+| `03-rxjs-migration-patterns.md` | Patterns RxJS | 90 |
+| `04-ivy-migration-guide.md` | Guide migration Ivy | 85 |
+| `08-workspace-hygiene.md` | Hygiène du workspace | 90 |
+| `09-version-management.md` | Gestion versions Node | 90 |
+| `10-local-dev-config.md` | Config développement local | 75 |
+| `11-playwright-e2e-testing.md` | Tests E2E Playwright | 75 |
+| `12-modification-rules.md` | Règles de modification | 95 |
+| `13-versioning-rules.md` | Règles de versioning | 95 |
 
-## 📞 Contact
+### Specs (Spécifications Détaillées)
 
-| Rôle | Responsabilité |
-|------|---------------|
-| Développeur | Questions techniques, validation des changements |
-| Architecte | Décisions d'architecture, choix de migration |
-| Assistants IA | Exécution, analyse, documentation |
+- `00-palier-00-validation-infrastructure/` : Gate Playwright et validation
+- `02-plan-migration.md` : Plan complet de migration
+- `04-palier-01-angular-5-to-6.md` : Palier 1 (Angular 5→6)
+- `05-palier-04-angular-8-to-9-ivy.md` : Palier 4 (Ivy)
+- `06-palier-07-angular-11-to-12-webpack5.md` : Palier 7 (Webpack 5)
+- Et plus...
+
+## 🔴 RÈGLE D'OR
+
+```
+pwc-ui-shared-v4-ia (lib)  →  pwc-ui-v4-ia (client)
+       MIGRER AVANT               MIGRER APRÈS
+```
+
+**TOUJOURS** migrer la bibliothèque partagée en premier, puis valider avant de migrer le client.
+
+## 🎯 Paliers de Migration
+
+```
+5 → 6 → 7 → 8 → 9 → 10 → 11 → 12 → 13 → 14 → 15 → 16 → 17 → 18 → 19 → 20
+```
+
+### Palier 0 : Gate Playwright (Validation)
+- ✅ Infrastructure Playwright configurée
+- ✅ 31 tests E2E créés (18 shared + 13 ui)
+- ✅ Tests visuels avec `page.pause()`
+- ✅ Inventaire des composants généré
+
+### Palier 1 : Angular 5→6 (RxJS)
+- Migration RxJS 5→6 (opérateurs pipeable)
+- Installation rxjs-compat
+- Codemod automatique disponible
+
+### Palier 4 : Angular 8→9 (Ivy)
+- Activation du nouveau moteur de rendu
+- Migration ModuleWithProviders
+- Suppression entryComponents
+
+### Palier 7 : Angular 11→12 (Webpack 5)
+- Migration Webpack 4→5
+- Adaptation webpack.config.js
+
+### Palier 12 : Angular 16→17 (Control Flow)
+- Nouvelle syntaxe : `@if`, `@for`, `@switch`
+- Migration automatique disponible
+
+### Palier 15 : Angular 19→20 (Final)
+- Dernière version stable
+- Validation complète
+
+## 🛠️ Scripts Utiles
+
+### Gestion des Versions Node.js
+
+```powershell
+# Basculer vers une version
+Use-Node10   # v10.24.1 (Angular 5-8)
+Use-Node12   # v12.22.12 (Angular 9-11)
+Use-Node14   # v14.21.3 (Angular 12)
+Use-Node16   # v16.20.2 (Angular 13-14)
+Use-Node18   # v18.20.4 (Angular 15-17)
+Use-Node20   # v20.18.0 (Angular 18-19)
+Use-Node22   # v22.11.0 (Angular 20)
+
+# Vérifier la version active
+node --version
+```
+
+### Vérifier la Stack
+
+```powershell
+.\scripts_outils_ia\check-stack.ps1
+```
+
+### Créer un Snapshot
+
+```powershell
+.\scripts_outils_ia\snapshot-file.ps1 -File "path/to/file"
+```
+
+### Rollback
+
+```powershell
+.\scripts_outils_ia\rollback-snapshot.ps1 -SnapshotId "mod-001"
+```
+
+## 📊 État de Migration
+
+Voir `.kiro/state/strands-state.json` pour l'état actuel de la migration.
+
+## 📝 Journal de Bord
+
+Voir `Documentation/JOURNAL-DE-BORD.md` pour l'historique des changements.
+
+## 🔗 Ressources
+
+- [Angular Update Guide](https://update.angular.io/)
+- [RxJS Migration Guide](https://rxjs.dev/guide/v6/migration)
+- [Ivy Migration Guide](https://angular.io/guide/ivy)
+- [Playwright Documentation](https://playwright.dev/)
+
+## 📞 Support
+
+Pour des questions ou problèmes:
+1. Consulter les steering files pertinents
+2. Vérifier les specs du palier concerné
+3. Consulter le journal de bord pour les problèmes connus
+
+## 📄 Licence
+
+Propriétaire - PwC
+
+## 🤝 Contribution
+
+Ce repository est géré par l'équipe de migration Angular. Les modifications doivent suivre les règles définies dans `.kiro/steering/12-modification-rules.md`.
 
 ---
 
-## 🎯 État Actuel du Projet
-
-**Dernière mise à jour** : 2026-02-03
-
-**Phase actuelle** : Initialisation et configuration du workspace
-
-**Prochaines étapes** :
-1. Audit initial des deux repositories
-2. Analyse des dépendances et vulnérabilités
-3. Plan de tests pour la migration 5→6
-4. Première migration : pwc-ui-shared-v4-ia (5.2.0 → 6.x)
-
----
-
-**Version du README** : 1.0.0
-**Maintenu par** : Migration Team
-**Dernière révision** : 2026-02-03
+**Dernière mise à jour** : 2026-02-06  
+**Version** : 1.0.0  
+**Statut** : Palier 0 - Gate Playwright ✅
