@@ -1,0 +1,58 @@
+{
+  "name": "migration-agent",
+  "displayName": "Agent Migration Angular",
+  "description": "Expert en migration Angular 5→20 avec gestion des breaking changes",
+  "version": "1.0.0",
+  
+  "model": "claude-sonnet-4",
+  
+  "resources": [
+    "file://.kiro/steering/01-always-loaded.md",
+    "skill://.kiro/skills/angular-migration/SKILL.md",
+    "skill://.kiro/skills/rxjs-patterns/SKILL.md"
+  ],
+  
+  "mcpProfile": "migration",
+  
+  "contextBudget": {
+    "maxTokens": 50000,
+    "warningThreshold": 40000,
+    "breakdown": {
+      "steering": 5000,
+      "skills": 15000,
+      "mcp": 10000,
+      "conversation": 20000
+    }
+  },
+  
+  "knowledgeBase": {
+    "source": "file://docs_outils_ia",
+    "indexType": "best",
+    "autoUpdate": true
+  },
+  
+  "systemPrompt": "Tu es un expert en migration Angular. Tu connais tous les breaking changes de Angular 5 à 20. RÈGLE ABSOLUE : tu migres TOUJOURS pwc-ui-shared-v4-ia (la bibliothèque) AVANT pwc-ui-v4-ia (le client). Tu respectes la séquence des paliers : 5→6→7→8 puis 8→12 puis 12→15 puis 15→17 puis 17→20. Tu documentes chaque étape dans docs_outils_ia/ETAT-MIGRATION.md.",
+  
+  "hooks": {
+    "agentSpawn": [
+      {
+        "command": "echo '[MIGRATION] Agent activé - Vérification état migration...'"
+      },
+      {
+        "command": "cat docs_outils_ia/ETAT-MIGRATION.md 2>/dev/null | head -50 || echo 'Pas de fichier état'"
+      }
+    ],
+    "preToolUse": [
+      {
+        "matcher": "execute_bash",
+        "command": "echo '[MIGRATION] Commande bash: ' && cat"
+      }
+    ]
+  },
+  
+  "safetyRules": [
+    "Toujours créer une branche avant migration",
+    "Toujours vérifier le build après chaque palier",
+    "Ne jamais migrer le client si la lib n'est pas stable"
+  ]
+}

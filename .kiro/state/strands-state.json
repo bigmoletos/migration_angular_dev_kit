@@ -1,0 +1,558 @@
+{
+  "version": "1.0",
+  "projectName": "migration-angular-5-to-20",
+  "description": "État de la migration Angular 5 → 20 pour pwc-ui-shared et pwc-ui",
+  "createdAt": "2026-02-03T00:00:00Z",
+  "lastUpdated": "2026-02-03T00:00:00Z",
+  
+  "currentPhase": "pre-migration",
+  "currentPalier": 0,
+  "targetPalier": 15,
+  
+  "repositories": {
+    "pwc-ui-shared": {
+      "path": "c:/repo_hps/pwc-ui-shared/pwc-ui-shared-v4-ia",
+      "priority": 1,
+      "status": "pending",
+      "currentVersion": {
+        "angular": "5.2.0",
+        "rxjs": "5.5.6",
+        "typescript": "2.6.2",
+        "nodejs": "v10"
+      },
+      "targetVersion": {
+        "angular": "20.0.0",
+        "rxjs": "7.8.0",
+        "typescript": "5.6.0",
+        "nodejs": "v20"
+      },
+      "metrics": {
+        "components": 447,
+        "services": 51,
+        "modules": 143
+      }
+    },
+    "pwc-ui": {
+      "path": "c:/repo_hps/pwc-ui/pwc-ui-v4-ia",
+      "priority": 2,
+      "status": "pending",
+      "currentVersion": {
+        "angular": "5.2.10",
+        "rxjs": "5.5.6",
+        "typescript": "2.5.3",
+        "nodejs": "v10"
+      },
+      "targetVersion": {
+        "angular": "20.0.0",
+        "rxjs": "7.8.0",
+        "typescript": "5.6.0",
+        "nodejs": "v20"
+      },
+      "metrics": {
+        "components": 2369,
+        "services": 109,
+        "modules": 547
+      }
+    }
+  },
+  
+  "paliers": [
+    {
+      "id": 1,
+      "name": "Angular 5.2 → 6.1",
+      "status": "pending",
+      "complexity": "high",
+      "estimatedDuration": "1-2 weeks",
+      "nodejs": "v10",
+      "breakingChanges": [
+        "@angular/http → @angular/common/http",
+        "RxJS 5.5 → RxJS 6.0 (opérateurs pipeable)",
+        "rxjs-compat requis temporairement"
+      ],
+      "codemods": [
+        "rxjs-5-to-6-migrate",
+        "scripts_outils_ia/codemods/migrate-rxjs.js"
+      ],
+      "repositories": {
+        "pwc-ui-shared": {
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "buildSuccess": false,
+          "testsPass": false
+        },
+        "pwc-ui": {
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "buildSuccess": false,
+          "testsPass": false
+        }
+      }
+    },
+    {
+      "id": 2,
+      "name": "Angular 6.1 → 7.2",
+      "status": "pending",
+      "complexity": "medium",
+      "estimatedDuration": "1 week",
+      "nodejs": "v10-v12",
+      "breakingChanges": [
+        "@angular/http complètement supprimé",
+        "Retirer rxjs-compat"
+      ],
+      "repositories": {
+        "pwc-ui-shared": {
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "buildSuccess": false,
+          "testsPass": false
+        },
+        "pwc-ui": {
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "buildSuccess": false,
+          "testsPass": false
+        }
+      }
+    },
+    {
+      "id": 3,
+      "name": "Angular 7.2 → 8.2",
+      "status": "pending",
+      "complexity": "medium",
+      "estimatedDuration": "1 week",
+      "nodejs": "v12",
+      "breakingChanges": [
+        "@ViewChild et @ContentChild nécessitent { static: true/false }"
+      ],
+      "codemods": [
+        "scripts_outils_ia/codemods/add-static-flag.js"
+      ],
+      "repositories": {
+        "pwc-ui-shared": {
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "buildSuccess": false,
+          "testsPass": false
+        },
+        "pwc-ui": {
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "buildSuccess": false,
+          "testsPass": false
+        }
+      }
+    },
+    {
+      "id": 4,
+      "name": "Angular 8.2 → 9.1 (IVY)",
+      "status": "pending",
+      "complexity": "very-high",
+      "estimatedDuration": "2 weeks",
+      "nodejs": "v12-v14",
+      "breakingChanges": [
+        "Ivy devient le moteur par défaut",
+        "ModuleWithProviders<T> requis",
+        "entryComponents obsolète"
+      ],
+      "codemods": [
+        "scripts_outils_ia/codemods/migrate-module-with-providers.js",
+        "ng update @angular/core --migrate-only"
+      ],
+      "repositories": {
+        "pwc-ui-shared": {
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "buildSuccess": false,
+          "testsPass": false
+        },
+        "pwc-ui": {
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "buildSuccess": false,
+          "testsPass": false
+        }
+      }
+    },
+    {
+      "id": 5,
+      "name": "Angular 9.1 → 10.2",
+      "status": "pending",
+      "complexity": "low",
+      "estimatedDuration": "1 week",
+      "nodejs": "v12-v14",
+      "breakingChanges": [
+        "TypeScript 3.9+ requis"
+      ],
+      "repositories": {
+        "pwc-ui-shared": {
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "buildSuccess": false,
+          "testsPass": false
+        },
+        "pwc-ui": {
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "buildSuccess": false,
+          "testsPass": false
+        }
+      }
+    },
+    {
+      "id": 6,
+      "name": "Angular 10.2 → 11.2",
+      "status": "pending",
+      "complexity": "low",
+      "estimatedDuration": "1 week",
+      "nodejs": "v12-v14",
+      "breakingChanges": [
+        "TypeScript 4.0+ requis"
+      ],
+      "repositories": {
+        "pwc-ui-shared": {
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "buildSuccess": false,
+          "testsPass": false
+        },
+        "pwc-ui": {
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "buildSuccess": false,
+          "testsPass": false
+        }
+      }
+    },
+    {
+      "id": 7,
+      "name": "Angular 11.2 → 12.2 (Webpack 5)",
+      "status": "pending",
+      "complexity": "medium",
+      "estimatedDuration": "1 week",
+      "nodejs": "v12-v16",
+      "breakingChanges": [
+        "Webpack 5 par défaut",
+        "View Engine complètement supprimé"
+      ],
+      "repositories": {
+        "pwc-ui-shared": {
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "buildSuccess": false,
+          "testsPass": false
+        },
+        "pwc-ui": {
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "buildSuccess": false,
+          "testsPass": false
+        }
+      }
+    },
+    {
+      "id": 8,
+      "name": "Angular 12.2 → 13.3",
+      "status": "pending",
+      "complexity": "low",
+      "estimatedDuration": "1 week",
+      "nodejs": "v12-v16",
+      "breakingChanges": [
+        "TypeScript 4.4+ requis"
+      ],
+      "repositories": {
+        "pwc-ui-shared": {
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "buildSuccess": false,
+          "testsPass": false
+        },
+        "pwc-ui": {
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "buildSuccess": false,
+          "testsPass": false
+        }
+      }
+    },
+    {
+      "id": 9,
+      "name": "Angular 13.3 → 14.3",
+      "status": "pending",
+      "complexity": "low",
+      "estimatedDuration": "1 week",
+      "nodejs": "v14-v18",
+      "breakingChanges": [
+        "TypeScript 4.6+ requis"
+      ],
+      "repositories": {
+        "pwc-ui-shared": {
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "buildSuccess": false,
+          "testsPass": false
+        },
+        "pwc-ui": {
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "buildSuccess": false,
+          "testsPass": false
+        }
+      }
+    },
+    {
+      "id": 10,
+      "name": "Angular 14.3 → 15.2 (Standalone)",
+      "status": "pending",
+      "complexity": "medium",
+      "estimatedDuration": "1-2 weeks",
+      "nodejs": "v14-v18",
+      "breakingChanges": [
+        "Standalone Components stables"
+      ],
+      "repositories": {
+        "pwc-ui-shared": {
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "buildSuccess": false,
+          "testsPass": false
+        },
+        "pwc-ui": {
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "buildSuccess": false,
+          "testsPass": false
+        }
+      }
+    },
+    {
+      "id": 11,
+      "name": "Angular 15.2 → 16.2 (Signals)",
+      "status": "pending",
+      "complexity": "high",
+      "estimatedDuration": "1-2 weeks",
+      "nodejs": "v16-v18",
+      "breakingChanges": [
+        "Signals introduits",
+        "TypeScript 4.9+ requis",
+        "ngcc supprimé"
+      ],
+      "repositories": {
+        "pwc-ui-shared": {
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "buildSuccess": false,
+          "testsPass": false
+        },
+        "pwc-ui": {
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "buildSuccess": false,
+          "testsPass": false
+        }
+      }
+    },
+    {
+      "id": 12,
+      "name": "Angular 16.2 → 17.3 (Control Flow)",
+      "status": "pending",
+      "complexity": "medium",
+      "estimatedDuration": "1-2 weeks",
+      "nodejs": "v18-v20",
+      "breakingChanges": [
+        "TypeScript 5.2+ requis",
+        "Control flow syntax (@if, @for, @switch)"
+      ],
+      "codemods": [
+        "ng generate @angular/core:control-flow"
+      ],
+      "repositories": {
+        "pwc-ui-shared": {
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "buildSuccess": false,
+          "testsPass": false
+        },
+        "pwc-ui": {
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "buildSuccess": false,
+          "testsPass": false
+        }
+      }
+    },
+    {
+      "id": 13,
+      "name": "Angular 17.3 → 18.2",
+      "status": "pending",
+      "complexity": "low",
+      "estimatedDuration": "1 week",
+      "nodejs": "v18-v20",
+      "breakingChanges": [
+        "TypeScript 5.4+ requis"
+      ],
+      "repositories": {
+        "pwc-ui-shared": {
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "buildSuccess": false,
+          "testsPass": false
+        },
+        "pwc-ui": {
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "buildSuccess": false,
+          "testsPass": false
+        }
+      }
+    },
+    {
+      "id": 14,
+      "name": "Angular 18.2 → 19.0",
+      "status": "pending",
+      "complexity": "low",
+      "estimatedDuration": "1 week",
+      "nodejs": "v18-v20",
+      "breakingChanges": [
+        "TypeScript 5.5+ requis"
+      ],
+      "repositories": {
+        "pwc-ui-shared": {
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "buildSuccess": false,
+          "testsPass": false
+        },
+        "pwc-ui": {
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "buildSuccess": false,
+          "testsPass": false
+        }
+      }
+    },
+    {
+      "id": 15,
+      "name": "Angular 19.0 → 20.0",
+      "status": "pending",
+      "complexity": "low",
+      "estimatedDuration": "1 week",
+      "nodejs": "v20+",
+      "breakingChanges": [
+        "TypeScript 5.6+ requis"
+      ],
+      "repositories": {
+        "pwc-ui-shared": {
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "buildSuccess": false,
+          "testsPass": false
+        },
+        "pwc-ui": {
+          "status": "pending",
+          "startedAt": null,
+          "completedAt": null,
+          "buildSuccess": false,
+          "testsPass": false
+        }
+      }
+    }
+  ],
+  
+  "checkpoints": [
+    {
+      "id": "pre-migration",
+      "timestamp": "2026-02-03T00:00:00Z",
+      "description": "État initial avant migration",
+      "gitBranch": "main",
+      "gitCommit": null,
+      "repositories": {
+        "pwc-ui-shared": {
+          "angular": "5.2.0",
+          "buildSuccess": true,
+          "testsPass": true
+        },
+        "pwc-ui": {
+          "angular": "5.2.10",
+          "buildSuccess": true,
+          "testsPass": true
+        }
+      }
+    }
+  ],
+  
+  "statistics": {
+    "totalPaliers": 15,
+    "completedPaliers": 0,
+    "progressPercent": 0,
+    "estimatedTotalDuration": "8-12 weeks",
+    "actualDuration": null,
+    "totalComponents": 2816,
+    "totalServices": 160,
+    "totalModules": 690
+  },
+  
+  "risks": {
+    "critical": [
+      "Dépendance circulaire pwc-ui ↔ pwc-ui-shared",
+      "Migration RxJS 5 → 6",
+      "Migration Ivy (Angular 8 → 9)",
+      "Webpack custom (pwc-ui)"
+    ],
+    "high": [
+      "Bibliothèques tierces obsolètes",
+      "Tests unitaires (2816 composants)",
+      "TypeScript 2.5 → 5.6"
+    ],
+    "medium": [
+      "Node.js v10 → v20",
+      "Gradle build",
+      "Nexus registry custom"
+    ],
+    "low": [
+      "Zone.js 0.8 → 0.14",
+      "Polyfills (core-js)"
+    ]
+  },
+  
+  "notes": [
+    "Toujours migrer pwc-ui-shared AVANT pwc-ui",
+    "Publier pwc-ui-shared sur Nexus après chaque palier validé",
+    "Exécuter tests unitaires systématiquement",
+    "Créer un tag Git après chaque palier réussi",
+    "Utiliser rxjs-compat temporairement au Palier 1",
+    "Activer Ivy progressivement au Palier 4",
+    "Migrer vers Webpack 5 au Palier 7",
+    "Considérer Standalone Components au Palier 10",
+    "Considérer Signals au Palier 11",
+    "Migrer vers Control Flow Syntax au Palier 12"
+  ]
+}

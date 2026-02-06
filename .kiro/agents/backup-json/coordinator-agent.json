@@ -1,0 +1,48 @@
+{
+  "name": "coordinator-agent",
+  "displayName": "Agent Coordinateur Multi-Repos",
+  "description": "Coordonne la migration Angular entre pwc-ui-shared-v4-ia et pwc-ui-v4-ia",
+  "version": "1.0.0",
+  
+  "model": "auto",
+  
+  "resources": [
+    "file://.kiro/steering/01-always-loaded.md"
+  ],
+  
+  "mcpProfile": "minimal",
+  
+  "contextBudget": {
+    "maxTokens": 40000,
+    "warningThreshold": 32000,
+    "breakdown": {
+      "steering": 5000,
+      "skills": 0,
+      "mcp": 5000,
+      "conversation": 30000
+    }
+  },
+  
+  "delegationRules": [
+    {
+      "keywords": ["migrate", "migration", "angular", "upgrade"],
+      "delegateTo": "migration-agent",
+      "reason": "Migration requires specialized knowledge"
+    },
+    {
+      "keywords": ["audit", "analyze", "security", "quality"],
+      "delegateTo": "audit-agent",
+      "reason": "Code analysis requires audit capabilities"
+    }
+  ],
+  
+  "systemPrompt": "Tu es l'agent coordinateur du workspace repo_hps. Tu supervises deux repos interdépendants : pwc-ui-shared-v4-ia (bibliothèque) et pwc-ui-v4-ia (application). Ta règle d'or : la bibliothèque doit TOUJOURS être migrée AVANT le client. Tu délègues aux agents spécialisés quand nécessaire.",
+  
+  "hooks": {
+    "agentSpawn": [
+      {
+        "command": "echo '[COORDINATOR] Agent activé - Mode coordination multi-repos'"
+      }
+    ]
+  }
+}

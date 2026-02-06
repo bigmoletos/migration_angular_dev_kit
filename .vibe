@@ -1,0 +1,143 @@
+# Vibe AI Configuration - Angular Migration Project
+
+## Mission
+Assist in migrating Angular 5.2.0 → Angular 20 progressively and safely
+
+## Project Structure
+- **Library**: pwc-ui-shared-v4-ia (Angular components/services)
+- **App**: pwc-ui-v4-ia (consumes the library)
+- **Workspace**: C:\repo_hps\
+
+## Golden Rules
+
+### 1. No Administrator Rights
+- Cannot run global npm installs
+- Cannot modify system permissions
+- Find creative workarounds for admin-required operations
+
+### 2. Keep Official Repos Pristine
+- pwc-ui-shared-v4-ia/ and pwc-ui-v4-ia/ = PRODUCTION CODE ONLY
+- All test/debug scripts → scripts_outils_ia/
+- Delete temporary files after use
+
+### 3. Document Everything
+Daily updates to `docs_outils_ia/JOURNAL-COORDINATION.md`:
+- Date and action title
+- What was done
+- Results (success/failure/partial)
+- Problems encountered and solutions
+- Next steps
+- Time spent
+
+### 4. Test-Driven Development
+- Red: Write failing test
+- Green: Make test pass with minimal code
+- Refactor: Improve while keeping tests green
+- Commit: Save progress
+
+### 5. Token Efficiency
+- Avoid redundant file reads
+- Use stateful workflows
+- Summarize context for reuse
+- Prefer specialized tools/skills
+
+## Migration Phases
+
+```
+Angular 5 ──┬──> 6 ──> 7 ──> 8 (Foundation)
+            ├──> 9 ──> 10 ─> 11 ─> 12 (Ivy Engine)
+            ├──> 13 ─> 14 ─> 15 (Standalone Components)
+            ├──> 16 ─> 17 (Signals)
+            └──> 18 ─> 19 ─> 20 (Zoneless)
+```
+
+**Critical**: Upgrade pwc-ui-shared-v4-ia FIRST, then pwc-ui-v4-ia
+
+## Development Principles
+
+### Code Quality
+- SOLID principles
+- Clean, readable code
+- Meaningful names
+- Handle edge cases
+- Avoid premature optimization
+
+### Angular Best Practices
+- Use OnPush change detection
+- Unsubscribe from observables
+- Prefer reactive patterns
+- Implement proper lifecycle hooks
+- Use TypeScript strict mode
+
+### Git Workflow
+- Atomic commits (one feature/fix per commit)
+- Descriptive commit messages
+- Never commit debug/temp files
+- Review before push
+
+## Common Patterns
+
+### Safe File Locations
+```
+✅ scripts_outils_ia/test-migration.js     # Temporary test
+✅ scripts_outils_ia/audit-deps.sh         # Helper script
+✅ docs_outils_ia/ANALYSIS.md              # Documentation
+
+❌ pwc-ui-shared-v4-ia/debug.log           # NEVER
+❌ pwc-ui-v4-ia/test-script.js             # NEVER
+```
+
+### Typical Workflow
+1. Analyze current state
+2. Write tests (TDD)
+3. Implement changes
+4. Run tests
+5. Build and verify
+6. Update documentation
+7. Commit if successful
+8. Plan next step
+
+## Key Documentation Files
+
+- `JOURNAL-COORDINATION.md` : Daily activity log (MUST update)
+- `ETAT-MIGRATION.md` : Migration progress dashboard
+- `ANALYSE-ARCHITECTURE-REPO.md` : Architecture analysis
+- `GUIDE-CONTEXT-OPTIMIZER.md` : Context optimization tips
+
+## Constraints & Solutions
+
+| Constraint | Solution |
+|------------|----------|
+| No admin rights | Use local npm installs only |
+| Can't pollute repos | Use scripts_outils_ia/ for tests |
+| Large codebase | Incremental migration by phase |
+| Token limits | Stateful workflows, summaries |
+
+## Success Criteria Per Migration Step
+
+1. ✅ Tests pass (TDD approach)
+2. ✅ Build succeeds (no errors)
+3. ✅ Security audit acceptable
+4. ✅ Documentation updated
+5. ✅ Changes committed
+6. ✅ Next step planned
+
+## Avoid These Mistakes
+
+- ❌ Skipping tests (TDD is mandatory)
+- ❌ Creating files in official repos
+- ❌ Forgetting to update JOURNAL-COORDINATION.md
+- ❌ Using sudo or global npm installs
+- ❌ Big bang migrations (must be incremental)
+- ❌ Committing without testing
+
+## Collaboration with Other AIs
+
+This project may involve multiple AI tools (.claude, .cursorrules, .gemini, etc.)
+- Share context efficiently
+- Maintain consistent documentation
+- Follow same constraints and principles
+- Update shared documentation files
+
+---
+Config Version: 1.0.0 | Date: 2026-02-03

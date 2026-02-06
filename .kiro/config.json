@@ -1,0 +1,49 @@
+{
+  "version": "1.0.0",
+  "workspace": "repo_hps",
+  "description": "Configuration Kiro pour la migration Angular 5 → 20",
+  "specs": {
+    "enabled": true,
+    "directory": ".kiro/specs",
+    "indexFile": "_index.json",
+    "autoLoad": [
+      "00-resume-executif.md",
+      "02-plan-migration.md"
+    ]
+  },
+  "steering": {
+    "enabled": true,
+    "directory": ".kiro/steering",
+    "indexFile": "_index.json",
+    "autoLoad": [
+      "01-project-overview.md",
+      "02-migration-angular-rules.md",
+      "12-modification-rules.md",
+      "13-versioning-rules.md"
+    ]
+  },
+  "hooks": {
+    "enabled": true,
+    "directory": ".kiro/hooks",
+    "autoLoad": [
+      "cleanup-and-journal.json",
+      "rules-reminder.json",
+      "sync-kiro-indexes.json"
+    ]
+  },
+  "agents": {
+    "enabled": true,
+    "directory": ".kiro/agents",
+    "indexFile": "_index.json"
+  },
+  "skills": {
+    "enabled": true,
+    "directory": ".kiro/skills",
+    "indexFile": "_index.json"
+  },
+  "contextBudget": {
+    "maxTokens": 200000,
+    "kiroFilesMaxPercent": 12,
+    "warningThreshold": 70
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Sync Indexes",
+  "version": "1.0.0",
+  "description": "Synchronise les index Kiro",
+  "when": {
+    "type": "userTriggered"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Synchronise les _index.json dans .kiro/specs/, .kiro/steering/, .kiro/skills/ avec les fichiers réels"
+  }
+}

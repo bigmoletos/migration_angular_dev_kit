@@ -1,0 +1,40 @@
+{
+  "version": "2.0.0",
+  "description": "Index des hooks Kiro - Compatible avec Kiro native",
+  "lastUpdated": "2026-02-04",
+  "hooks": [
+    {
+      "name": "cleanup-and-journal",
+      "displayName": "🧹 Cleanup & Journal",
+      "description": "Nettoie le workspace après chaque session",
+      "file": "cleanup-and-journal.json",
+      "trigger": "agentStop",
+      "action": "askAgent",
+      "enabled": true
+    },
+    {
+      "name": "rules-reminder",
+      "displayName": "📋 Migration Rules",
+      "description": "Rappelle les règles de migration (manuel)",
+      "file": "rules-reminder.json",
+      "trigger": "userTriggered",
+      "action": "askAgent",
+      "enabled": true
+    },
+    {
+      "name": "sync-kiro-indexes",
+      "displayName": "🔄 Sync Indexes",
+      "description": "Synchronise les index Kiro (manuel)",
+      "file": "sync-kiro-indexes.json",
+      "trigger": "userTriggered",
+      "action": "askAgent",
+      "enabled": true
+    }
+  ],
+  "statistics": {
+    "totalHooks": 3,
+    "enabledHooks": 3,
+    "automaticHooks": 1,
+    "manualHooks": 2
+  }
+}

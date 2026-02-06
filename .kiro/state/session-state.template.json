@@ -1,0 +1,56 @@
+{
+  "version": "1.0",
+  "description": "État de session persisté - Ce fichier est mis à jour automatiquement",
+  
+  "session": {
+    "id": "session-template",
+    "startedAt": null,
+    "lastActivityAt": null,
+    "totalMessages": 0
+  },
+  
+  "context": {
+    "estimatedTokens": 0,
+    "percentUsed": 0,
+    "breakdown": {
+      "systemPrompt": 0,
+      "agentsmd": 0,
+      "steering": 0,
+      "skills": 0,
+      "mcp": 0,
+      "conversation": 0
+    }
+  },
+  
+  "loadedResources": {
+    "skills": [],
+    "mcpServers": [],
+    "steeringDocs": []
+  },
+  
+  "activeAgent": {
+    "name": null,
+    "loadedAt": null,
+    "messageCount": 0
+  },
+  
+  "history": {
+    "skillsLoaded": [],
+    "skillsUnloaded": [],
+    "agentSwitches": []
+  },
+  
+  "metrics": {
+    "totalSkillLoads": 0,
+    "totalSkillUnloads": 0,
+    "totalMcpCalls": 0,
+    "avgResponseTimeMs": 0
+  },
+  
+  "warnings": [],
+  
+  "lastState": {
+    "savedAt": null,
+    "reason": "initial"
+  }
+}

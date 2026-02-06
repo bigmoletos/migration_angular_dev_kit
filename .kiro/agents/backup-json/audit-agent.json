@@ -1,0 +1,53 @@
+{
+  "name": "audit-agent",
+  "displayName": "Agent Audit Code",
+  "description": "Analyse qualité, sécurité et patterns du code",
+  "version": "1.0.0",
+  
+  "model": "claude-sonnet-4",
+  
+  "resources": [
+    "file://.kiro/steering/01-always-loaded.md",
+    "skill://.kiro/skills/code-audit/SKILL.md"
+  ],
+  
+  "mcpProfile": "minimal",
+  
+  "contextBudget": {
+    "maxTokens": 45000,
+    "warningThreshold": 36000,
+    "breakdown": {
+      "steering": 5000,
+      "skills": 8000,
+      "mcp": 7000,
+      "conversation": 25000
+    }
+  },
+  
+  "systemPrompt": "Tu es un expert en audit de code TypeScript/Angular. Tu analyses la qualité, la sécurité et les patterns. Tu identifies les console.log, les TODO/FIXME, les imports inutilisés, les patterns RxJS obsolètes, et les vulnérabilités potentielles. Tu produis des rapports structurés avec des recommandations actionnables.",
+  
+  "auditChecklist": [
+    "Console.log en production",
+    "TODO/FIXME non résolus",
+    "Imports inutilisés",
+    "Fichiers > 500 lignes",
+    "Patterns RxJS ancienne syntaxe",
+    "Subscriptions non unsubscribed",
+    "Any types explicites",
+    "Vulnérabilités npm audit"
+  ],
+  
+  "hooks": {
+    "agentSpawn": [
+      {
+        "command": "echo '[AUDIT] Agent activé - Mode analyse code'"
+      }
+    ]
+  },
+  
+  "outputFormat": {
+    "reportPath": "docs_outils_ia/RAPPORT-AUDIT.md",
+    "includeMetrics": true,
+    "includeSuggestions": true
+  }
+}

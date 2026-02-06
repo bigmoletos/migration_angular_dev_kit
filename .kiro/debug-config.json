@@ -1,0 +1,85 @@
+{
+  "version": "1.0",
+  "description": "Configuration du mode debug pour le système de lazy loading",
+  
+  "debug": {
+    "enabled": false,
+    "logLevel": "info",
+    "logFile": "docs_outils_ia/.debug-log.md",
+    
+    "logEvents": {
+      "skillLoad": true,
+      "skillUnload": true,
+      "mcpActivate": true,
+      "mcpDeactivate": true,
+      "agentSwitch": true,
+      "keywordMatch": true,
+      "contextThreshold": true
+    },
+    
+    "showInChat": {
+      "skillLoading": true,
+      "mcpLoading": true,
+      "contextUsage": false,
+      "matchingDetails": false
+    },
+    
+    "metrics": {
+      "trackTokenUsage": true,
+      "trackResponseTime": true,
+      "trackToolCalls": true
+    }
+  },
+  
+  "state": {
+    "persistenceEnabled": true,
+    "stateFile": ".kiro/state/session-state.json",
+    "persistFields": [
+      "loadedSkills",
+      "loadedMcp",
+      "activeAgent",
+      "lastActivity",
+      "contextUsage"
+    ],
+    "restoreOnStartup": true,
+    "expireAfterHours": 24
+  },
+  
+  "alerts": {
+    "contextWarningPercent": 70,
+    "contextCriticalPercent": 85,
+    "skillUnusedMessages": 5,
+    "mcpUnusedMessages": 3
+  },
+  
+  "hooks": {
+    "onSkillLoad": [
+      "echo '[DEBUG] Skill chargé: ${SKILL_NAME} (${TOKEN_COUNT} tokens)'"
+    ],
+    "onSkillUnload": [
+      "echo '[DEBUG] Skill déchargé: ${SKILL_NAME}'"
+    ],
+    "onContextWarning": [
+      "echo '[ALERTE] Context à ${CONTEXT_PERCENT}% - Envisager de décharger des ressources'"
+    ],
+    "onContextCritical": [
+      "echo '[CRITIQUE] Context à ${CONTEXT_PERCENT}% - Déchargement automatique'"
+    ]
+  },
+  
+  "templates": {
+    "debugLogEntry": "## ${TIMESTAMP}\n\n**Event:** ${EVENT_TYPE}\n**Details:** ${DETAILS}\n**Context:** ${CONTEXT_PERCENT}%\n\n---\n",
+    
+    "contextReport": [
+      "### État du Contexte",
+      "",
+      "| Composant | Tokens | % |",
+      "|-----------|--------|---|",
+      "| AGENTS.md | ${AGENTS_TOKENS} | ${AGENTS_PERCENT}% |",
+      "| Skills actifs | ${SKILLS_TOKENS} | ${SKILLS_PERCENT}% |",
+      "| MCP actifs | ${MCP_TOKENS} | ${MCP_PERCENT}% |",
+      "| Conversation | ${CONV_TOKENS} | ${CONV_PERCENT}% |",
+      "| **TOTAL** | **${TOTAL_TOKENS}** | **${TOTAL_PERCENT}%** |"
+    ]
+  }
+}

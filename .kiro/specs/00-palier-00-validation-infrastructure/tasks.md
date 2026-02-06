@@ -1,0 +1,142 @@
+# Tasks - Palier 0 : Validation Infrastructure
+
+## Tâches
+
+- [ ] 1. Implémenter Gate Playwright (3 jours)
+  - [ ] 1.1 Installation Playwright
+    - [ ] 1.1.1 `npm install -D @playwright/test@^1.40.0`
+    - [ ] 1.1.2 `npx playwright install chromium`
+    - [ ] 1.1.3 Vérifier installation
+  - [ ] 1.2 Créer configuration Playwright
+    - [ ] 1.2.1 Créer `playwright.config.ts`
+    - [ ] 1.2.2 Configurer baseURL (http://localhost:4201)
+    - [ ] 1.2.3 Configurer timeout, retries, workers
+    - [ ] 1.2.4 Configurer reporters (html, json, list)
+  - [ ] 1.3 Créer tests Playwright
+    - [ ] 1.3.1 Créer `e2e/tests/demo-home.spec.ts`
+    - [ ] 1.3.2 Créer `e2e/tests/demo-forms.spec.ts`
+    - [ ] 1.3.3 Créer `e2e/tests/demo-navigation.spec.ts` (optionnel)
+    - [ ] 1.3.4 Vérifier syntaxe TypeScript
+  - [ ] 1.4 Ajouter scripts package.json
+    - [ ] 1.4.1 Ajouter `test:e2e`
+    - [ ] 1.4.2 Ajouter `test:e2e:ui`
+    - [ ] 1.4.3 Ajouter `test:e2e:debug`
+    - [ ] 1.4.4 Ajouter `test:e2e:report`
+  - [ ] 1.5 Tester Gate sur Angular 5 actuel
+    - [ ] 1.5.1 Terminal 1 : Lancer app (`npm start -- --port 4201`)
+    - [ ] 1.5.2 Terminal 2 : Lancer tests (`npm run test:e2e`)
+    - [ ] 1.5.3 Vérifier au moins 1 test passe
+    - [ ] 1.5.4 Vérifier rapport HTML généré
+    - [ ] 1.5.5 Ajuster sélecteurs si nécessaire
+
+- [ ] 2. Tester Codemods (1 jour)
+  - [ ] 2.1 Créer fichiers de test
+    - [ ] 2.1.1 Créer `.kiro/temp/test-codemod-rxjs.ts`
+    - [ ] 2.1.2 Créer `.kiro/temp/test-codemod-module.ts`
+  - [ ] 2.2 Tester codemod RxJS
+    - [ ] 2.2.1 Tester `rxjs-5-to-6-migrate` (officiel)
+    - [ ] 2.2.2 Tester `rxjs-imports.js` (custom)
+    - [ ] 2.2.3 Vérifier transformations
+  - [ ] 2.3 Tester codemod ModuleWithProviders
+    - [ ] 2.3.1 Tester `module-with-providers.js`
+    - [ ] 2.3.2 Vérifier transformations
+  - [ ] 2.4 Documenter résultats
+    - [ ] 2.4.1 Créer `.kiro/temp/rapport-test-codemods.md`
+    - [ ] 2.4.2 Documenter statut (✅/❌)
+    - [ ] 2.4.3 Documenter cas testés
+    - [ ] 2.4.4 Documenter recommandations
+
+- [ ] 3. Analyser Webpack Custom (1 jour)
+  - [ ] 3.1 Lire configurations Webpack
+    - [ ] 3.1.1 Lire `webpack.dev.config.js`
+    - [ ] 3.1.2 Lire `webpack.prod.config.js`
+    - [ ] 3.1.3 Identifier loaders
+    - [ ] 3.1.4 Identifier plugins
+  - [ ] 3.2 Vérifier compatibilité Webpack 5
+    - [ ] 3.2.1 Évaluer loaders (file-loader, url-loader)
+    - [ ] 3.2.2 Évaluer plugins
+    - [ ] 3.2.3 Créer `.kiro/temp/analyse-webpack.md`
+    - [ ] 3.2.4 Formuler recommandation
+
+- [ ] 4. Analyser Dépendances Obsolètes (1 jour)
+  - [ ] 4.1 Lister dépendances obsolètes
+    - [ ] 4.1.1 Exécuter `npm outdated`
+    - [ ] 4.1.2 Identifier libs obsolètes
+  - [ ] 4.2 Créer stratégie de migration
+    - [ ] 4.2.1 Créer `.kiro/specs/11-deprecated-libraries-strategy.md`
+    - [ ] 4.2.2 Documenter primeng
+    - [ ] 4.2.3 Documenter ng2-file-upload
+    - [ ] 4.2.4 Documenter angular2-text-mask
+    - [ ] 4.2.5 Documenter ng2-charts
+    - [ ] 4.2.6 Documenter ng2-pdf-viewer
+    - [ ] 4.2.7 Documenter @ngrx/store
+    - [ ] 4.2.8 Assigner paliers de migration
+
+- [ ] 5. Créer Matrice de Criticité Composants (1 jour)
+  - [ ] 5.1 Identifier composants critiques (20%)
+    - [ ] 5.1.1 pwc-ui-shared : FormInput, Date, Amount, Http, Auth, DataTable
+    - [ ] 5.1.2 pwc-ui : Login, Dashboard, Navigation
+  - [ ] 5.2 Identifier composants importants (30%)
+    - [ ] 5.2.1 Checkbox, RadioButton, Listbox, DateRange, AmountRange
+  - [ ] 5.3 Identifier composants secondaires (50%)
+    - [ ] 5.3.1 Composants spécifiques métier
+  - [ ] 5.4 Documenter matrice
+    - [ ] 5.4.1 Créer `.kiro/temp/matrice-criticite-composants.md`
+    - [ ] 5.4.2 Classifier tous les composants
+
+- [ ] 6. Créer Stratégie de Rollback (1 jour)
+  - [ ] 6.1 Définir critères Go/No-Go
+    - [ ] 6.1.1 Build réussi
+    - [ ] 6.1.2 Tests >95%
+    - [ ] 6.1.3 Gate Playwright 100%
+    - [ ] 6.1.4 App démarre
+    - [ ] 6.1.5 Composants critiques OK
+    - [ ] 6.1.6 Aucune régression perf
+    - [ ] 6.1.7 Aucun bug bloquant
+  - [ ] 6.2 Documenter procédure rollback Git
+  - [ ] 6.3 Documenter procédure rollback Nexus
+  - [ ] 6.4 Documenter procédure rollback Snapshots
+    - [ ] 6.4.1 Vérifier système de snapshots opérationnel
+    - [ ] 6.4.2 Tester `snapshot-file.ps1`
+    - [ ] 6.4.3 Tester `rollback-snapshot.ps1`
+    - [ ] 6.4.4 Documenter workflow snapshot → modification → diff → rollback
+  - [ ] 6.5 Créer template email communication
+  - [ ] 6.6 Créer `.kiro/specs/12-rollback-strategy.md`
+
+- [ ] 7. Dry-Run Palier 1 (2 jours)
+  - [ ] 7.1 Créer branche de test
+    - [ ] 7.1.1 `git checkout -b test-palier-1-dry-run`
+    - [ ] 7.1.2 `git tag test-dry-run-start`
+  - [ ] 7.2 Tenter migration Angular 5→6
+    - [ ] 7.2.1 `ng update @angular/cli@6 @angular/core@6 --dry-run`
+    - [ ] 7.2.2 Noter changements prévus
+  - [ ] 7.3 Identifier problèmes potentiels
+    - [ ] 7.3.1 Créer `.kiro/temp/rapport-dry-run-palier-1.md`
+    - [ ] 7.3.2 Documenter changements prévus
+    - [ ] 7.3.3 Documenter problèmes identifiés
+    - [ ] 7.3.4 Ajuster temps estimé
+  - [ ] 7.4 Rollback branche de test
+    - [ ] 7.4.1 `git reset --hard test-dry-run-start`
+    - [ ] 7.4.2 `git checkout dev_vibecoding`
+    - [ ] 7.4.3 `git branch -D test-palier-1-dry-run`
+
+- [ ] 8. Validation Globale
+  - [ ] 8.1 Vérifier Tâche 1 validée (Gate Playwright)
+  - [ ] 8.2 Vérifier Tâche 2 validée (Codemods)
+  - [ ] 8.3 Vérifier Tâche 3 validée (Webpack)
+  - [ ] 8.4 Vérifier Tâche 4 validée (Libs obsolètes)
+  - [ ] 8.5 Vérifier Tâche 5 validée (Matrice criticité)
+  - [ ] 8.6 Vérifier Tâche 6 validée (Rollback)
+  - [ ] 8.7 Vérifier Tâche 7 validée (Dry-run)
+  - [ ] 8.8 Vérifier tous les livrables créés
+  - [ ] 8.9 Décision GO/NO-GO Palier 1
+
+- [ ] 9. Livrables
+  - [ ] 9.1 `pwc-ui-shared/playwright.config.ts`
+  - [ ] 9.2 `pwc-ui-shared/e2e/tests/*.spec.ts`
+  - [ ] 9.3 `.kiro/temp/rapport-test-codemods.md`
+  - [ ] 9.4 `.kiro/temp/analyse-webpack.md`
+  - [ ] 9.5 `.kiro/specs/11-deprecated-libraries-strategy.md`
+  - [ ] 9.6 `.kiro/temp/matrice-criticite-composants.md`
+  - [ ] 9.7 `.kiro/specs/12-rollback-strategy.md`
+  - [ ] 9.8 `.kiro/temp/rapport-dry-run-palier-1.md`

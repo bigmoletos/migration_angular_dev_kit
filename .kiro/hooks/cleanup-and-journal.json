@@ -1,0 +1,12 @@
+{
+  "name": "Cleanup & Journal",
+  "version": "1.0.0",
+  "description": "Nettoie le workspace après chaque session",
+  "when": {
+    "type": "agentStop"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Nettoie .kiro/temp/ et vérifie s'il faut mettre à jour le journal de bord"
+  }
+}

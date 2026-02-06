@@ -1,0 +1,153 @@
+# OpenCode Configuration - Angular Migration Project
+
+## Project Mission
+Migrate Angular 5.2.0 to Angular 20 in controlled, incremental steps
+
+## Core Repositories
+- **pwc-ui-shared-v4-ia**: Component library (migrate FIRST)
+- **pwc-ui-v4-ia**: Main application (migrate SECOND)
+- **Workspace**: C:\repo_hps\
+
+## Non-Negotiable Rules
+
+### 1️⃣ No Admin Rights Available
+You do NOT have administrator privileges. Adapt accordingly:
+- ❌ No `npm install -g`
+- ❌ No `sudo` commands
+- ❌ No system permission changes
+- ✅ Use local npm installs only
+
+### 2️⃣ Repository Cleanliness
+Official repos must remain clean:
+- ❌ No test files in pwc-ui-shared-v4-ia/
+- ❌ No debug files in pwc-ui-v4-ia/
+- ✅ Use scripts_outils_ia/ for experiments
+- 🧹 Delete temporary files after use
+
+### 3️⃣ Document All Actions
+Update `docs_outils_ia/JOURNAL-COORDINATION.md` daily:
+```
+## [Date] - [Action]
+**Repos concernés**: [which repos]
+**Action effectuée**: [what was done]
+**Résultat**: [outcome]
+**Problèmes rencontrés**: [issues and fixes]
+**Prochaine étape**: [next step]
+**Temps passé**: [duration]
+```
+
+### 4️⃣ Test-Driven Development
+Follow TDD religiously:
+1. Write test (fails)
+2. Write code (test passes)
+3. Refactor (tests still pass)
+4. Commit
+
+### 5️⃣ Token Efficiency
+- Use stateful workflows
+- Avoid redundant operations
+- Summarize for reuse
+- Leverage specialized tools
+
+## Migration Path
+
+```
+5.2.0 → [6→7→8] → [9→10→11→12] → [13→14→15] → [16→17] → [18→19→20]
+        Foundation    Ivy Engine     Standalone   Signals   Modern
+```
+
+**Critical**: pwc-ui-shared-v4-ia must migrate before pwc-ui-v4-ia
+
+## Best Practices
+
+### Code Quality
+- SOLID principles
+- Clean, readable code
+- Meaningful names
+- Error handling
+- TypeScript strict mode
+
+### Angular Standards
+- OnPush change detection
+- Unsubscribe from observables (takeUntil)
+- Proper lifecycle hooks
+- Reactive patterns
+- Lazy loading
+
+### Git Hygiene
+- Atomic commits
+- Descriptive messages
+- No debug files
+- Review before push
+
+## Directory Structure
+
+```
+C:\repo_hps\
+├── pwc-ui-shared-v4-ia/    # 🔒 Clean - production only
+├── pwc-ui-v4-ia/           # 🔒 Clean - production only
+├── scripts_outils_ia/      # ✅ Temporary scripts (cleanup after)
+└── docs_outils_ia/         # 📚 Documentation
+    ├── JOURNAL-COORDINATION.md   # Daily updates
+    └── ETAT-MIGRATION.md         # Progress tracking
+```
+
+## Per-Step Checklist
+
+- [ ] Write tests (TDD)
+- [ ] Update package.json
+- [ ] Install dependencies
+- [ ] Fix breaking changes
+- [ ] Run tests (all pass)
+- [ ] Build (no errors)
+- [ ] Security audit
+- [ ] Update JOURNAL-COORDINATION.md
+- [ ] Update ETAT-MIGRATION.md
+- [ ] Commit with message
+
+## Safe Commands
+
+```bash
+# ✅ Safe (no admin)
+npm install <package>
+npm test
+npm run build
+npm audit
+git add/commit/push
+
+# ⚠️ Use in scripts_outils_ia/ only
+node test-script.js
+npm install <experimental>
+
+# ❌ Forbidden (admin required)
+npm install -g <package>
+sudo <anything>
+```
+
+## Pre-Action Checks
+
+- [ ] Admin rights needed? → Find alternative
+- [ ] Pollutes official repos? → Use scripts_outils_ia/
+- [ ] Tests written first? (TDD)
+- [ ] Will update documentation?
+- [ ] Token-efficient approach?
+
+## Success Criteria
+
+✅ Tests passing
+✅ Build successful
+✅ Security clean
+✅ Documentation updated
+✅ Changes committed
+✅ Next step planned
+
+## Coordination
+
+Multiple AI tools may assist (.claude, .cursorrules, .vibe, .gemini)
+- Share constraints
+- Update shared docs
+- Avoid duplication
+- Maintain consistency
+
+---
+Version: 1.0.0 | Updated: 2026-02-03

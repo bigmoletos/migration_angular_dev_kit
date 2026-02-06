@@ -1,0 +1,18 @@
+
+# generer le powerpoint
+
+cd /home/claude && node create-presentation-v3.4.js 2>&1
+Sortie
+
+✅ Présentation créée : Migration-Angular-5-20-v3.4-2fev26.pptx
+
+# convertion slides 4 et 5 pour QA
+
+
+bash
+
+cd /mnt/user-data/outputs && python /mnt/skills/public/pptx/scripts/office/soffice.py --headless --convert-to pdf Migration-Angular-5-20-v3.4-2fev26.pptx 2>&1 && pdftoppm -jpeg -r 150 -f 4 -l 5 Migration-Angular-5-20-v3.4-2fev26.pdf slide
+
+# sortie
+
+convert /mnt/user-data/outputs/Migration-Angular-5-20-v3.4-2fev26.pptx as a Impress document -> /mnt/user-data/outputs/Migration-Angular-5-20-v3.4-2fev26.pdf using filter : impress_pdf_Export

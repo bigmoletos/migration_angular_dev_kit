@@ -1,0 +1,283 @@
+# Gemini Configuration - Angular 5→20 Migration
+
+## Project Overview
+Progressive migration of Angular applications from version 5.2.0 to version 20
+
+**Repositories**:
+- `pwc-ui-shared-v4-ia` - Shared components library (migrate FIRST)
+- `pwc-ui-v4-ia` - Main application (migrate SECOND)
+
+**Current Stack**: Angular 5.2.0, RxJS 5.5.6, TypeScript 2.6.2
+**Target Stack**: Angular 20, latest compatible versions
+
+## Critical Constraints
+
+### Environment Limitations
+🔒 **No Administrator Access**
+- Cannot install global npm packages
+- Cannot modify system-level permissions
+- Cannot use sudo or elevated commands
+- Solution: Use local node_modules and --save flags
+
+### Repository Hygiene
+🧹 **Keep Official Repos Clean**
+- Never create test/debug files in pwc-ui-shared-v4-ia/
+- Never create test/debug files in pwc-ui-v4-ia/
+- Use scripts_outils_ia/ for temporary scripts
+- Always clean up temporary files after use
+
+### Mandatory Documentation
+📝 **Daily Journal Updates**
+File: `docs_outils_ia/JOURNAL-COORDINATION.md`
+
+Required for every significant action:
+```markdown
+## [YYYY-MM-DD] - [Action Title]
+**Repos concernés**: [repo names]
+**Action effectuée**: [what you did]
+**Résultat**: [success/failure/partial]
+**Problèmes rencontrés**: [issues and solutions]
+**Prochaine étape**: [next action]
+**Temps passé**: [duration]
+```
+
+## Development Methodology
+
+### Test-Driven Development (TDD)
+**Mandatory approach for all code changes**
+
+1. 🔴 **Red**: Write a failing test that defines desired behavior
+2. 🟢 **Green**: Write minimal code to make the test pass
+3. 🔵 **Refactor**: Improve code quality while keeping tests green
+4. 💾 **Commit**: Save your progress with descriptive message
+
+### Code Quality Standards
+- Follow SOLID principles
+- Write self-documenting code (clear names, simple logic)
+- DRY (Don't Repeat Yourself)
+- KISS (Keep It Simple, Stupid)
+- Handle errors and edge cases
+- Use TypeScript strict mode
+- Prefer immutability
+
+### Angular-Specific Best Practices
+- Use OnPush change detection strategy
+- Properly unsubscribe from Observables (takeUntil pattern)
+- Implement lifecycle hooks correctly (OnDestroy for cleanup)
+- Prefer reactive forms over template-driven
+- Use lazy loading for routes
+- Migrate to standalone components when reaching Angular 14+
+
+### RxJS Best Practices
+- Use pipeable operators (mandatory from Angular 6+)
+- Avoid nested subscriptions
+- Use declarative approach over imperative
+- Apply shareReplay() for expensive operations
+- Leverage RxJS operators (map, filter, switchMap, etc.)
+
+## Migration Strategy
+
+### 5-Phase Incremental Approach
+
+**Phase 1: Foundation (Angular 5→8)**
+- 5.2.0 → 6.x: Migrate to HttpClient, update RxJS imports
+- 6.x → 7.x: Update CLI, improve bundle sizes
+- 7.x → 8.x: Prepare for Ivy, differential loading
+
+**Phase 2: Ivy Engine (Angular 8→12)**
+- 8.x → 9.x: Enable Ivy renderer
+- 9.x → 10.x: Update dependencies
+- 10.x → 11.x: Font inlining, HMR improvements
+- 11.x → 12.x: Webpack 5, strict mode
+
+**Phase 3: Standalone Components (Angular 12→15)**
+- 12.x → 13.x: View Engine removal
+- 13.x → 14.x: Standalone components (optional)
+- 14.x → 15.x: Directive composition, image optimization
+
+**Phase 4: Signals (Angular 15→17)**
+- 15.x → 16.x: Required inputs, Signals preview
+- 16.x → 17.x: Signals stable, deferrable views
+
+**Phase 5: Modern Angular (Angular 17→20)**
+- 17.x → 18.x: Zoneless experiments
+- 18.x → 19.x: Incremental hydration
+- 19.x → 20.x: Latest features and optimizations
+
+### Migration Order
+**IMPORTANT**: Always migrate in this order:
+1. First: `pwc-ui-shared-v4-ia` (library that others depend on)
+2. Then: `pwc-ui-v4-ia` (application that consumes the library)
+
+Never reverse this order or migrate in parallel!
+
+### Checklist for Each Migration Step
+- [ ] Run audit of current dependencies
+- [ ] Write tests for existing functionality (TDD)
+- [ ] Update package.json with new versions
+- [ ] Install dependencies (npm install)
+- [ ] Fix breaking changes and deprecations
+- [ ] Run tests (npm test) - all must pass
+- [ ] Build project (npm run build) - must succeed
+- [ ] Run security audit (npm audit)
+- [ ] Manual testing of critical features
+- [ ] Update JOURNAL-COORDINATION.md
+- [ ] Update ETAT-MIGRATION.md progress tracker
+- [ ] Commit changes with descriptive message
+
+## File Organization Rules
+
+### Approved Locations
+```
+C:\repo_hps\
+├── pwc-ui-shared-v4-ia/     ❌ Production code only - NO test files
+├── pwc-ui-v4-ia/            ❌ Production code only - NO test files
+├── scripts_outils_ia/       ✅ Temporary scripts allowed
+│   ├── test-*.js            ✅ Test scripts (delete after use)
+│   ├── debug-*.sh           ✅ Debug helpers (delete after use)
+│   └── analyze-*.js         ✅ Analysis tools (delete after use)
+└── docs_outils_ia/          ✅ Documentation files
+    ├── JOURNAL-COORDINATION.md   📝 Daily updates required
+    ├── ETAT-MIGRATION.md         📊 Progress tracking
+    └── *.md                      📚 Reference documentation
+```
+
+### Temporary Files Lifecycle
+1. Create in `scripts_outils_ia/`
+2. Use for testing/debugging
+3. **Delete immediately after use**
+4. If valuable, document findings in `docs_outils_ia/`
+
+## Token Optimization
+
+### Stateful Workflow
+- Maintain context between interactions
+- Summarize important information for reuse
+- Avoid rereading same files multiple times
+- Use orchestrator to coordinate multiple tools
+
+### Efficient Tool Usage
+- Batch similar operations (read multiple files in parallel)
+- Use specialized tools (Task, Explore) instead of manual searches
+- Leverage skills when available
+- Cache analysis results
+
+### Context Management
+- Prioritize essential information
+- Summarize long documents
+- Reference line numbers when discussing code
+- Clear stale context periodically
+
+## Common Commands
+
+### Safe Commands (No Admin Required)
+```bash
+# Dependency management
+npm install --save <package>
+npm install --save-dev <package>
+npm outdated
+npm audit
+npm update <package>
+
+# Development
+npm test
+npm run build
+npm run lint
+npm start
+
+# Git operations
+git status
+git add <files>
+git commit -m "message"
+git push
+git diff
+```
+
+### Commands Requiring scripts_outils_ia/
+```bash
+# Testing experimental changes
+node scripts_outils_ia/test-upgrade.js
+
+# Debugging issues
+bash scripts_outils_ia/debug-deps.sh
+
+# Temporary logs
+echo "test" > scripts_outils_ia/temp.log
+```
+
+### Forbidden Commands (Admin Required)
+```bash
+❌ npm install -g <package>     # Global install
+❌ sudo <command>               # Elevated permissions
+❌ chown / chmod                # Permission changes
+```
+
+## Pre-Action Checklist
+
+Before making ANY change, verify:
+- [ ] Does this require admin rights? If yes, find alternative
+- [ ] Will this create files in official repos? If yes, use scripts_outils_ia/
+- [ ] Have I written tests first? (TDD requirement)
+- [ ] Will I update JOURNAL-COORDINATION.md after?
+- [ ] Is this change necessary for the migration?
+- [ ] Have I considered token optimization?
+
+## Integration with Other AI Tools
+
+This workspace may use multiple AI assistants:
+- Claude (.claude)
+- Cursor (.cursorrules)
+- Vibe (.vibe)
+- Gemini (this file)
+- Others (.opencode, .codex, etc.)
+
+**Collaboration Principles**:
+- Share same constraints and goals
+- Maintain consistent documentation
+- Avoid duplicate work
+- Update shared files (JOURNAL, ETAT-MIGRATION)
+
+## Success Metrics
+
+### Per Migration Step
+- ✅ All tests passing
+- ✅ Build successful without errors
+- ✅ No critical security vulnerabilities
+- ✅ Documentation updated
+- ✅ Changes committed
+- ✅ Next step identified
+
+### Overall Project
+- Progress tracked in ETAT-MIGRATION.md
+- No pollution in official repos
+- Complete test coverage
+- Clean git history
+- Knowledge preserved in documentation
+
+## Troubleshooting Common Issues
+
+| Issue | Solution |
+|-------|----------|
+| "Permission denied" | Don't use sudo; install locally |
+| Test files in wrong location | Move to scripts_outils_ia/ |
+| Token limit exceeded | Summarize context, use stateful workflow |
+| Breaking changes | Check migration guides, write tests first |
+| Dependency conflicts | Use npm ls to debug, resolve incrementally |
+
+## Resources
+
+**Key Documentation Files**:
+- `JOURNAL-COORDINATION.md` - Daily activity log
+- `ETAT-MIGRATION.md` - Migration dashboard
+- `GUIDE-CONTEXT-OPTIMIZER.md` - Token optimization guide
+- `ANALYSE-ARCHITECTURE-REPO.md` - Repository structure
+
+**Angular Migration Guides**:
+- Official Angular Update Guide: https://update.angular.io/
+- RxJS Migration: https://rxjs.dev/guide/v6/migration
+- TypeScript Compatibility: Check each Angular version requirements
+
+---
+**Configuration Version**: 1.0.0
+**Last Updated**: 2026-02-03
+**Maintained By**: Migration Team

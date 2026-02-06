@@ -1,0 +1,106 @@
+{
+  "version": "1.0",
+  "description": "Configuration Strands Agent pour orchestration multi-agents",
+  
+  "orchestrator": {
+    "name": "migration-orchestrator",
+    "model": "anthropic.claude-sonnet-4-20250514",
+    "region": "eu-west-1",
+    "maxConcurrentAgents": 2,
+    "defaultTimeoutSeconds": 300
+  },
+  
+  "state": {
+    "backend": "local",
+    "path": ".kiro/state/strands-state.json",
+    "backupPath": ".kiro/state/strands-state.backup.json",
+    "ttlHours": 168,
+    "autoSaveIntervalSeconds": 30
+  },
+  
+  "agents": {
+    "migration-lib": {
+      "displayName": "Migration Lib Agent",
+      "description": "Agent spécialisé migration bibliothèque Angular",
+      "repo": "pwc-ui-shared-v4-ia",
+      "skills": ["angular-migration", "codemods-refactoring", "rxjs-patterns"],
+      "mcpProfile": "migration"
+    },
+    "migration-client": {
+      "displayName": "Migration Client Agent",
+      "description": "Agent spécialisé migration application cliente",
+      "repo": "pwc-ui-v4-ia",
+      "skills": ["angular-migration", "codemods-refactoring"],
+      "mcpProfile": "migration",
+      "dependsOn": ["migration-lib"]
+    },
+    "audit": {
+      "displayName": "Audit Agent",
+      "description": "Agent de validation et audit",
+      "skills": ["code-audit", "validation-formelle"],
+      "mcpProfile": "audit"
+    }
+  },
+  
+  "workflows": {
+    "angular-migration": {
+      "displayName": "Migration Angular Complète",
+      "description": "Migration itérative de Angular X vers Y",
+      "checkpointAfterEachStep": true,
+      "retryOnFailure": 2,
+      "steps": [
+        {
+          "id": "migrate-lib-{version}",
+          "agent": "migration-lib",
+          "action": "migrate_to_version",
+          "nextOnSuccess": "migrate-client-{version}",
+          "nextOnFailure": "rollback"
+        },
+        {
+          "id": "migrate-client-{version}",
+          "agent": "migration-client",
+          "action": "migrate_to_version",
+          "precondition": "migration-lib.version >= {version}",
+          "nextOnSuccess": "validate-{version}",
+          "nextOnFailure": "rollback"
+        },
+        {
+          "id": "validate-{version}",
+          "agent": "audit",
+          "action": "validate_migration",
+          "nextOnSuccess": "next-version",
+          "nextOnFailure": "manual-review"
+        }
+      ]
+    }
+  },
+  
+  "errorHandling": {
+    "buildFailure": {
+      "retry": 2,
+      "action": "pause_for_manual_fix"
+    },
+    "testFailure": {
+      "retry": 1,
+      "action": "continue_with_warning"
+    },
+    "dependencyConflict": {
+      "retry": 0,
+      "action": "rollback_and_notify"
+    }
+  },
+  
+  "notifications": {
+    "onStepComplete": true,
+    "onCheckpointCreated": true,
+    "onError": true,
+    "onWorkflowComplete": true
+  },
+  
+  "logging": {
+    "level": "INFO",
+    "file": ".kiro/state/strands.log",
+    "maxSizeMb": 10,
+    "rotateCount": 3
+  }
+}

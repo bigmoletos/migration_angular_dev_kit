@@ -1,0 +1,12 @@
+{
+  "name": "Migration Rules",
+  "version": "1.0.0",
+  "description": "Rappelle les règles de migration",
+  "when": {
+    "type": "userTriggered"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Rappelle les règles essentielles:\n- Git: Rester sur 'dev_vibecoding'\n- Migration: pwc-ui-shared AVANT pwc-ui\n- Propreté: Utiliser .kiro/temp/\n- Node.js: Utiliser Use-NodeXX selon le palier"
+  }
+}

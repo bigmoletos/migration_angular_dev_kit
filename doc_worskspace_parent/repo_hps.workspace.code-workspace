@@ -1,0 +1,56 @@
+{
+	"folders": [
+		{
+			"name": "PWC UI Main",
+			"path": "./pwc-ui/pwc-ui-v4-ia"
+		},
+		{
+			"name": "PWC UI Shared",
+			"path": "./pwc-ui-shared/pwc-ui-shared-v4-ia"
+		}
+	],
+	"settings": {
+		"typescript.preferences.includePackageJsonAutoImports": "on",
+		"typescript.suggest.autoImports": true,
+		"editor.formatOnSave": true,
+		"editor.codeActionsOnSave": {
+			"source.organizeImports": "explicit"
+		},
+		"terminal.integrated.defaultProfile.windows": "PowerShell",
+		"terminal.integrated.profiles.windows": {
+			"PowerShell": {
+				"source": "PowerShell",
+				"icon": "terminal-powershell"
+			},
+			"Command Prompt": {
+				"path": [
+					"${env:windir}\\System32\\cmd.exe"
+				],
+				"icon": "terminal-cmd"
+			}
+		},
+		"git.enabled": true,
+		"git.autorefresh": true,
+		"git.detectSubmodules": true,
+		"files.exclude": {
+			"**/node_modules": true,
+			"**/dist": true,
+			// "**/.git": true,  // Commented to allow Git detection in workspace
+			"**/.gradle": true,
+			"**/build": true
+		},
+		"search.exclude": {
+			"**/node_modules": true,
+			"**/dist": true,
+			"**/build": true
+		}
+	},
+	"extensions": {
+		"recommendations": [
+			"angular.ng-template",
+			"ms-vscode.vscode-typescript-next",
+			"esbenp.prettier-vscode",
+			"ms-vscode.vscode-json"
+		]
+	}
+}

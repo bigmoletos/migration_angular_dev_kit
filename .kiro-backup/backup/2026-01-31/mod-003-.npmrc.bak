@@ -1,0 +1,12 @@
+# Original configuration
+# registry=https://nexus.pwcv4.com/repository/npm-public/
+
+# Modified configuration with authentication (modop_nexus.md)
+# npm-public for installing dependencies, npm-private is only for publishing
+# Using readonly credentials for public access
+registry=https://nexus.pwcv4.com/repository/npm-public/
+//nexus.pwcv4.com/repository/npm-public/:_auth=cmVhZG9ubHk6ZXZ5QGdueDV2ZW0uUUNUMGFoYw==
+//nexus.pwcv4.com/repository/npm-public/:always-auth=true
+
+# TEMPORARY: Using official npm registry (Nexus not accessible)
+# registry=https://registry.npmjs.org/

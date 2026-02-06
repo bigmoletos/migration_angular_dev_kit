@@ -1,0 +1,146 @@
+# Tasks - Palier 1 : Angular 5.2 → 6.1
+
+## Tâches
+
+- [ ] 1. Phase 1 : Migrer pwc-ui-shared
+  - [ ] 1.1 Préparation
+    - [ ] 1.1.1 Basculer vers Node.js v10 (`Use-Node10`)
+    - [ ] 1.1.2 Vérifier versions (`node --version`, `npm --version`)
+    - [ ] 1.1.3 Créer branche `palier-1-angular-6`
+    - [ ] 1.1.4 Créer tag `palier-0-angular-5-shared`
+    - [ ] 1.1.5 Vérifier état actuel (build + tests)
+  - [ ] 1.2 Installer rxjs-compat
+    - [ ] 1.2.1 `npm install rxjs-compat@6.0.0 --save`
+    - [ ] 1.2.2 Vérifier package.json
+    - [ ] 1.2.3 Vérifier build réussi
+  - [ ] 1.3 Mettre à jour Angular
+    - [ ] 1.3.1 Dry-run : `ng update @angular/cli@6 @angular/core@6 --dry-run`
+    - [ ] 1.3.2 Appliquer : `ng update @angular/cli@6 @angular/core@6 --allow-dirty`
+    - [ ] 1.3.3 Vérifier `angular.json` créé
+    - [ ] 1.3.4 Vérifier `.angular-cli.json` supprimé
+    - [ ] 1.3.5 Vérifier compilation réussie
+  - [ ] 1.4 Migrer RxJS avec codemod
+    - [ ] 1.4.1 Installer codemod : `npm install -g rxjs-tslint`
+    - [ ] 1.4.2 Dry-run : `rxjs-5-to-6-migrate -p src/tsconfig.app.json`
+    - [ ] 1.4.3 Appliquer : `rxjs-5-to-6-migrate -p src/tsconfig.app.json --apply`
+    - [ ] 1.4.4 Vérifier aucun import `rxjs/add/...` : `grep -r "rxjs/add/" src/`
+    - [ ] 1.4.5 Vérifier opérateurs pipeable
+    - [ ] 1.4.6 Vérifier compilation réussie
+  - [ ] 1.5 Migrer @angular/http → HttpClient
+    - [ ] 1.5.1 Remplacer HttpModule par HttpClientModule dans modules
+    - [ ] 1.5.2 Remplacer Http par HttpClient dans services
+    - [ ] 1.5.3 Supprimer `.map(res => res.json())`
+    - [ ] 1.5.4 Typer les appels HttpClient : `http.get<Type>()`
+    - [ ] 1.5.5 Vérifier aucun import `@angular/http` : `grep -r "@angular/http" src/`
+    - [ ] 1.5.6 Vérifier compilation réussie
+  - [ ] 1.6 Fixer erreurs de compilation
+    - [ ] 1.6.1 Exécuter `npm run build`
+    - [ ] 1.6.2 Fixer imports manquants
+    - [ ] 1.6.3 Fixer opérateurs incorrects
+    - [ ] 1.6.4 Fixer types incorrects
+    - [ ] 1.6.5 Vérifier 0 erreur de compilation
+  - [ ] 1.7 Exécuter tests unitaires
+    - [ ] 1.7.1 Adapter tests HttpClient (HttpClientTestingModule)
+    - [ ] 1.7.2 Exécuter `npm test`
+    - [ ] 1.7.3 Vérifier >95% des tests passent
+    - [ ] 1.7.4 Fixer tests critiques si nécessaire
+  - [ ] 1.8 Build final
+    - [ ] 1.8.1 Exécuter `npm run build`
+    - [ ] 1.8.2 Vérifier succès
+    - [ ] 1.8.3 Vérifier warnings <10
+  - [ ] 1.9 🚦 Gate Playwright (BLOQUANT)
+    - [ ] 1.9.1 Installer Playwright (si première fois) : `npm install -D @playwright/test`
+    - [ ] 1.9.2 Installer navigateurs : `npx playwright install`
+    - [ ] 1.9.3 Terminal 1 : Lancer app sur port 4201 (`start-pwc-ui-shared-4201.bat`)
+    - [ ] 1.9.4 Vérifier app démarre : http://localhost:4201
+    - [ ] 1.9.5 Terminal 2 : Exécuter tests E2E (`npm run test:e2e`)
+    - [ ] 1.9.6 Vérifier 100% des tests passent (OBLIGATOIRE)
+    - [ ] 1.9.7 Vérifier demo-home.spec.ts : ✅
+    - [ ] 1.9.8 Vérifier demo-forms.spec.ts : ✅
+    - [ ] 1.9.9 Vérifier demo-navigation.spec.ts : ✅
+    - [ ] 1.9.10 Vérifier page charge en <5s
+    - [ ] 1.9.11 Vérifier aucune erreur console critique
+  - [ ] 1.10 Publication Nexus
+    - [ ] 1.10.1 Vérifier version actuelle : `npm version`
+    - [ ] 1.10.2 Incrémenter version : `npm version patch`
+    - [ ] 1.10.3 Publier : `npm publish`
+    - [ ] 1.10.4 Vérifier package disponible sur Nexus
+  - [ ] 1.11 Tag Git
+    - [ ] 1.11.1 `git add .`
+    - [ ] 1.11.2 `git commit -m "feat: migrate to Angular 6 and RxJS 6"`
+    - [ ] 1.11.3 `git tag palier-1-shared-angular-6`
+    - [ ] 1.11.4 `git push origin palier-1-angular-6`
+    - [ ] 1.11.5 `git push origin palier-1-shared-angular-6`
+
+- [ ] 2. Phase 2 : Migrer pwc-ui (APRÈS Gate Validé)
+  - [ ] 2.1 Préparation
+    - [ ] 2.1.1 Basculer vers Node.js v10 (`Use-Node10`)
+    - [ ] 2.1.2 Vérifier versions
+    - [ ] 2.1.3 Créer branche `palier-1-angular-6`
+    - [ ] 2.1.4 Créer tag `palier-0-angular-5-ui`
+    - [ ] 2.1.5 Vérifier état actuel (build + tests)
+  - [ ] 2.2 Mettre à jour @pwc/shared
+    - [ ] 2.2.1 `npm update @pwc/shared`
+    - [ ] 2.2.2 `npm install`
+    - [ ] 2.2.3 Vérifier version : `npm list @pwc/shared`
+  - [ ] 2.3 Installer rxjs-compat
+    - [ ] 2.3.1 `npm install rxjs-compat@6.0.0 --save`
+  - [ ] 2.4 Mettre à jour Angular
+    - [ ] 2.4.1 `ng update @angular/cli@6 @angular/core@6 --allow-dirty`
+    - [ ] 2.4.2 Vérifier `angular.json` créé
+    - [ ] 2.4.3 Vérifier compilation réussie
+  - [ ] 2.5 Adapter webpack.config (si nécessaire)
+    - [ ] 2.5.1 Vérifier `webpack.dev.config.js`
+    - [ ] 2.5.2 Vérifier `webpack.prod.config.js`
+    - [ ] 2.5.3 Ajouter alias si erreurs
+    - [ ] 2.5.4 Vérifier build réussi
+  - [ ] 2.6 Migrer RxJS
+    - [ ] 2.6.1 `rxjs-5-to-6-migrate -p src/tsconfig.app.json --apply`
+    - [ ] 2.6.2 Vérifier imports RxJS
+    - [ ] 2.6.3 Vérifier compilation réussie
+  - [ ] 2.7 Migrer @angular/http
+    - [ ] 2.7.1 Remplacer HttpModule par HttpClientModule
+    - [ ] 2.7.2 Remplacer Http par HttpClient
+    - [ ] 2.7.3 Vérifier aucun import `@angular/http`
+    - [ ] 2.7.4 Vérifier compilation réussie
+  - [ ] 2.8 Fixer erreurs
+    - [ ] 2.8.1 `npm run build`
+    - [ ] 2.8.2 Fixer erreurs une par une
+    - [ ] 2.8.3 Vérifier 0 erreur
+  - [ ] 2.9 Tests unitaires
+    - [ ] 2.9.1 Adapter tests HttpClient
+    - [ ] 2.9.2 `npm test`
+    - [ ] 2.9.3 Vérifier >95% passent
+  - [ ] 2.10 Build final
+    - [ ] 2.10.1 `npm run build`
+    - [ ] 2.10.2 Vérifier succès
+  - [ ] 2.11 Test manuel application
+    - [ ] 2.11.1 Lancer app : `start-pwc-ui.bat`
+    - [ ] 2.11.2 Vérifier http://localhost:4200
+    - [ ] 2.11.3 Tester login
+    - [ ] 2.11.4 Tester navigation
+    - [ ] 2.11.5 Tester appels API
+    - [ ] 2.11.6 Vérifier aucune erreur console
+  - [ ] 2.12 Tag Git
+    - [ ] 2.12.1 `git add .`
+    - [ ] 2.12.2 `git commit -m "feat: migrate to Angular 6 and RxJS 6"`
+    - [ ] 2.12.3 `git tag palier-1-ui-angular-6`
+    - [ ] 2.12.4 `git push origin palier-1-angular-6`
+    - [ ] 2.12.5 `git push origin palier-1-ui-angular-6`
+
+- [ ] 3. Documentation et Validation
+  - [ ] 3.1 Mettre à jour `.kiro/state/strands-state.json`
+  - [ ] 3.2 Documenter problèmes rencontrés
+  - [ ] 3.3 Documenter solutions appliquées
+  - [ ] 3.4 Documenter temps réel vs estimé
+  - [ ] 3.5 Mettre à jour journal de bord si nécessaire
+
+- [ ] 4. Validation finale
+  - [ ] 4.1 pwc-ui-shared : Build ✅
+  - [ ] 4.2 pwc-ui-shared : Tests >95% ✅
+  - [ ] 4.3 pwc-ui-shared : Gate Playwright 100% ✅
+  - [ ] 4.4 pwc-ui-shared : Publié Nexus ✅
+  - [ ] 4.5 pwc-ui : Build ✅
+  - [ ] 4.6 pwc-ui : Tests >95% ✅
+  - [ ] 4.7 pwc-ui : App démarre ✅
+  - [ ] 4.8 Tous les tags Git créés ✅

@@ -1,0 +1,246 @@
+{
+  "version": "1.0",
+  "description": "Index des steering - Chargés contextuellement selon les fichiers modifiés",
+  "lastUpdated": "2026-02-04",
+  "loadingStrategy": {
+    "mode": "contextual",
+    "note": "Certains steerings sont toujours chargés, d'autres uniquement selon le contexte"
+  },
+  "steerings": [
+    {
+      "name": "00-agent-router",
+      "path": "00-agent-router.md",
+      "description": "Agent Router - Routage Intelligent",
+      "keywords": [
+        "agent",
+        "router",
+        "rxjs",
+        "testing",
+        "angular"
+      ],
+      "tokenEstimate": 696,
+      "triggers": [],
+      "alwaysLoaded": false
+    },
+    {
+      "name": "01-project-overview",
+      "path": "01-project-overview.md",
+      "description": "01 - Vue d'Ensemble du Projet de Migration",
+      "keywords": [
+        "project",
+        "overview",
+        "angular"
+      ],
+      "tokenEstimate": 1347,
+      "triggers": [
+        "*.module.ts"
+      ],
+      "alwaysLoaded": false
+    },
+    {
+      "name": "02-migration-angular-rules",
+      "path": "02-migration-angular-rules.md",
+      "description": "Règles de Migration Angular",
+      "keywords": [
+        "migration",
+        "angular",
+        "rules",
+        "rxjs",
+        "ivy",
+        "webpack",
+        "typescript",
+        "testing"
+      ],
+      "tokenEstimate": 2143,
+      "triggers": [
+        "*.spec.ts",
+        "webpack*.js"
+      ],
+      "alwaysLoaded": false
+    },
+    {
+      "name": "03-rxjs-migration-patterns",
+      "path": "03-rxjs-migration-patterns.md",
+      "description": "Patterns de Migration RxJS 5 → 6/7",
+      "keywords": [
+        "rxjs",
+        "migration",
+        "patterns",
+        "testing",
+        "angular"
+      ],
+      "tokenEstimate": 2533,
+      "triggers": [],
+      "alwaysLoaded": false
+    },
+    {
+      "name": "04-ivy-migration-guide",
+      "path": "04-ivy-migration-guide.md",
+      "description": "Guide de Migration Ivy (Angular 8 → 9)",
+      "keywords": [
+        "ivy",
+        "migration",
+        "guide",
+        "testing",
+        "angular"
+      ],
+      "tokenEstimate": 2447,
+      "triggers": [
+        "*.spec.ts"
+      ],
+      "alwaysLoaded": false
+    },
+    {
+      "name": "05-webpack-custom-migration",
+      "path": "05-webpack-custom-migration.md",
+      "description": "Migration Webpack Custom (pwc-ui uniquement)",
+      "keywords": [
+        "webpack",
+        "custom",
+        "migration",
+        "testing",
+        "angular"
+      ],
+      "tokenEstimate": 2543,
+      "triggers": [
+        "webpack*.js"
+      ],
+      "alwaysLoaded": false
+    },
+    {
+      "name": "06-testing-strategy",
+      "path": "06-testing-strategy.md",
+      "description": "Stratégie de Tests - Migration Angular",
+      "keywords": [
+        "testing",
+        "strategy",
+        "rxjs",
+        "ivy",
+        "webpack",
+        "playwright",
+        "angular"
+      ],
+      "tokenEstimate": 2371,
+      "triggers": [
+        "*.spec.ts",
+        "**/e2e/**/*.ts",
+        "**/playwright/**/*.ts"
+      ],
+      "alwaysLoaded": false
+    },
+    {
+      "name": "07-typescript-migration",
+      "path": "07-typescript-migration.md",
+      "description": "Migration TypeScript 2.5 → 5.6",
+      "keywords": [
+        "typescript",
+        "migration",
+        "angular"
+      ],
+      "tokenEstimate": 1688,
+      "triggers": [],
+      "alwaysLoaded": false
+    },
+    {
+      "name": "08-workspace-hygiene",
+      "path": "08-workspace-hygiene.md",
+      "description": "Hygiène du Workspace",
+      "keywords": [
+        "workspace",
+        "hygiene",
+        "rxjs",
+        "testing"
+      ],
+      "tokenEstimate": 1335,
+      "triggers": [
+        "*.spec.ts"
+      ],
+      "alwaysLoaded": false
+    },
+    {
+      "name": "09-version-management",
+      "path": "09-version-management.md",
+      "description": "Gestion des Versions - Raccourcis PowerShell",
+      "keywords": [
+        "version",
+        "management",
+        "rxjs",
+        "typescript",
+        "angular"
+      ],
+      "tokenEstimate": 1707,
+      "triggers": [],
+      "alwaysLoaded": false
+    },
+    {
+      "name": "10-local-dev-config",
+      "path": "10-local-dev-config.md",
+      "description": "Configuration Développement Local",
+      "keywords": [
+        "local",
+        "dev",
+        "config",
+        "testing"
+      ],
+      "tokenEstimate": 1583,
+      "triggers": [
+        "*.spec.ts",
+        "*.module.ts"
+      ],
+      "alwaysLoaded": false
+    },
+    {
+      "name": "11-playwright-e2e-testing",
+      "path": "11-playwright-e2e-testing.md",
+      "description": "Tests E2E avec Playwright",
+      "keywords": [
+        "playwright",
+        "e2e",
+        "testing",
+        "angular"
+      ],
+      "tokenEstimate": 4052,
+      "triggers": [
+        "*.spec.ts",
+        "**/e2e/**/*.ts",
+        "**/playwright/**/*.ts"
+      ],
+      "alwaysLoaded": false
+    },
+    {
+      "name": "12-modification-rules",
+      "path": "12-modification-rules.md",
+      "description": "Règles de Modification des Fichiers - Système de Rollback",
+      "keywords": [
+        "modification",
+        "rules",
+        "typescript",
+        "testing"
+      ],
+      "tokenEstimate": 2015,
+      "triggers": [],
+      "alwaysLoaded": false
+    },
+    {
+      "name": "13-versioning-rules",
+      "path": "13-versioning-rules.md",
+      "description": "Règles de Versioning des Fichiers .kiro",
+      "keywords": [
+        "versioning",
+        "rules",
+        "ivy",
+        "angular"
+      ],
+      "tokenEstimate": 2348,
+      "triggers": [],
+      "alwaysLoaded": false
+    }
+  ],
+  "statistics": {
+    "totalSteerings": 14,
+    "alwaysLoaded": 0,
+    "contextual": 14,
+    "totalTokensIfAllLoaded": 28808
+  },
+  "usage": "Les steerings sont chargés automatiquement selon les fichiers modifiés ou les tâches en cours"
+}

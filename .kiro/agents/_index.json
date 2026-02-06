@@ -1,0 +1,63 @@
+{
+  "version": "2.0",
+  "description": "Index des agents spécialisés - Format MD compatible Strands",
+  "lastUpdated": "2026-02-04",
+  "format": "markdown",
+  "strandCompatible": true,
+  
+  "routingStrategy": {
+    "mode": "keyword-match",
+    "fallback": "coordinator-agent",
+    "allowManualSwitch": true
+  },
+  
+  "agents": [
+    {
+      "name": "coordinator-agent",
+      "displayName": "🎯 Agent Coordinateur",
+      "description": "Coordonne les actions entre repos pwc-ui-shared et pwc-ui",
+      "file": "coordinator-agent.md",
+      "activationKeywords": ["coordinate", "sync", "multi-repo", "both", "ensemble"],
+      "isDefault": true,
+      "capabilities": ["coordination", "state-tracking", "cross-repo"],
+      "strandCompatible": true
+    },
+    {
+      "name": "migration-agent",
+      "displayName": "🔄 Agent Migration Angular",
+      "description": "Spécialisé dans la migration Angular 5→20 avec respect de l'ordre lib→client",
+      "file": "migration-agent.md",
+      "activationKeywords": ["migrate", "migration", "upgrade", "angular", "ng update", "palier"],
+      "isDefault": false,
+      "capabilities": ["angular-migration", "breaking-changes", "rxjs-migration"],
+      "strandCompatible": true
+    },
+    {
+      "name": "audit-agent",
+      "displayName": "🔍 Agent Audit Code",
+      "description": "Analyse qualité, sécurité, patterns et dette technique",
+      "file": "audit-agent.md",
+      "activationKeywords": ["audit", "analyze", "quality", "security", "review", "lint"],
+      "isDefault": false,
+      "capabilities": ["code-analysis", "security-scan", "pattern-detection"],
+      "strandCompatible": true
+    }
+  ],
+  
+  "switchCommands": {
+    "#coordinator": "coordinator-agent",
+    "#migration": "migration-agent",
+    "#audit": "audit-agent"
+  },
+  
+  "statistics": {
+    "totalAgents": 3,
+    "defaultAgent": "coordinator-agent",
+    "strandCompatibleAgents": 3
+  },
+  
+  "backup": {
+    "jsonFiles": "backup-json/",
+    "note": "Les fichiers JSON originaux sont sauvegardés dans backup-json/"
+  }
+}

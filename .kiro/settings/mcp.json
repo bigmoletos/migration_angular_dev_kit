@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "strands-orchestrator": {
+      "command": "C:\\Users\\franck.desmedt\\AppData\\Local\\Programs\\Python\\Python312\\Scripts\\uv.exe",
+      "args": ["tool", "run", "strands-agents-mcp-server"],
+      "env": {
+        "STRANDS_CONFIG": "c:/repo_hps/.kiro/strands/config.json",
+        "STRANDS_STATE_PATH": "c:/repo_hps/.kiro/state/strands-state.json",
+        "STRANDS_LOG_LEVEL": "INFO"
+      },
+      "disabled": false,
+      "autoApprove": [],
+      "note": "AWS Strands Agents MCP Server - via uv tool run"
+    }
+  }
+}

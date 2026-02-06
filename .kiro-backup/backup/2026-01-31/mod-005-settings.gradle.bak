@@ -1,0 +1,32 @@
+buildscript {
+  repositories {
+    mavenLocal()
+    mavenCentral()
+    gradlePluginPortal()
+    maven {
+      name "HPS PWCV4 Repository"
+      // Original configuration (using only environment variables)
+      // url System.getenv('NEXUS_MVN_PUBLIC_URL')
+      // credentials {
+      //   username System.getenv('NEXUS_USER')
+      //   password System.getenv('NEXUS_PASSWORD')
+      // }
+
+      // Modified configuration (fallback to gradle.properties if env vars not set)
+      url System.getenv('NEXUS_MVN_PUBLIC_URL') ?: System.getProperty('NEXUS_MVN_PUBLIC_URL')
+      credentials {
+        username System.getenv('NEXUS_USER') ?: System.getProperty('NEXUS_USER')
+        password System.getenv('NEXUS_PASSWORD') ?: System.getProperty('NEXUS_PASSWORD')
+      }
+    }
+  }
+  dependencies {
+    classpath "pwc-sdk:gradle-global-plugin:$pwcGradlePluginVersion"
+    classpath "se.bjurr.gitchangelog:git-changelog-gradle-plugin:$changelogPlugin"
+    classpath "pwc-sdk:pwc-gradle-caching:$pwcCachingPluginVersion"
+  }
+}
+
+rootProject.name = 'pwc-ui-shared'
+
+apply plugin: 'pwc.sdk.cache-plugin'

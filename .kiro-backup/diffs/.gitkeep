@@ -1,0 +1,2 @@
+# Ce fichier permet de conserver le dossier diffs dans Git
+# Les diffs eux-mêmes sont ignorés par .gitignore

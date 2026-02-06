@@ -1,0 +1,34 @@
+{
+	"folders": [
+		{
+			"name": "repo_hps (Root)",
+			"path": "."
+		},
+		// {
+		// 	"name": "pwc-ui (Main Application)",
+		// 	"path": "pwc-ui/pwc-ui-v4-ia"
+		// },
+		// {
+		// 	"name": "pwc-ui-shared (Shared Library)",
+		// 	"path": "pwc-ui-shared/pwc-ui-shared-v4-ia"
+		// },
+		{
+			"name": "kiro_migration_angular",
+			"path": "../Users/franck.desmedt/dev/kiro_migration_angular"
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			"**/node_modules": true,
+			"**/.gradle": true,
+			"**/dist": true,
+			"**/build": true
+		},
+		"search.exclude": {
+			"**/node_modules": true,
+			"**/dist": true,
+			"**/build": true
+		},
+		"powershell.cwd": "repo_hps (Root)"
+	}
+}

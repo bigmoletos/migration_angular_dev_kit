@@ -1,0 +1,91 @@
+{
+  "version": "1.0",
+  "description": "Index des specs - NON chargées automatiquement",
+  "lastUpdated": "2026-02-04",
+  "loadingStrategy": {
+    "mode": "explicit",
+    "note": "Les specs ne sont chargées que sur demande explicite"
+  },
+  "specs": [
+    {
+      "name": "00-palier-00-validation-infrastructure",
+      "path": "00-palier-00-validation-infrastructure.md",
+      "description": "Une fois le Palier 0 validé, passer au **Palier 1 : Angular 5 → 6** avec une base solide. ",
+      "keywords": [
+        "palier",
+        "validation",
+        "infrastructure",
+        "spec"
+      ],
+      "tokenEstimate": 3834
+    },
+    {
+      "name": "00-resume-executif",
+      "path": "00-resume-executif.md",
+      "description": "Résumé Exécutif - Migration Angular 5 → 20",
+      "keywords": [
+        "resume",
+        "executif",
+        "résumé",
+        "exécutif",
+        "migration",
+        "angular"
+      ],
+      "tokenEstimate": 1787
+    },
+    {
+      "name": "01-etat-actuel",
+      "path": "01-etat-actuel.md",
+      "description": "1. Générer le plan de migration par paliers (5→6→7→...→20) 2. Identifier les risques et breaking cha",
+      "keywords": [
+        "etat",
+        "actuel",
+        "état",
+        "workspace",
+        "migration",
+        "angular"
+      ],
+      "tokenEstimate": 806
+    },
+    {
+      "name": "02-plan-migration",
+      "path": "02-plan-migration.md",
+      "description": "Plan de Migration Angular 5 → 20",
+      "keywords": [
+        "plan",
+        "migration",
+        "angular"
+      ],
+      "tokenEstimate": 2608
+    },
+    {
+      "name": "03-risques-identifies",
+      "path": "03-risques-identifies.md",
+      "description": "### Support - Équipe migration : À définir - Slack/Teams : À définir ",
+      "keywords": [
+        "risques",
+        "identifies",
+        "identifiés",
+        "migration",
+        "angular"
+      ],
+      "tokenEstimate": 2532
+    },
+    {
+      "name": "04-palier-01-angular-5-to-6",
+      "path": "04-palier-01-angular-5-to-6.md",
+      "description": "Une fois le Palier 1 validé, passer au **Palier 2 : Angular 6 → 7** (retirer rxjs-compat). ",
+      "keywords": [
+        "palier",
+        "angular",
+        "spec"
+      ],
+      "tokenEstimate": 3037
+    }
+  ],
+  "statistics": {
+    "totalSpecs": 6,
+    "totalTokensIfAllLoaded": 14604
+  },
+  "usage": "Référencer une spec avec son nom: 'Exécute la spec 00-coordination-migration'"
+}

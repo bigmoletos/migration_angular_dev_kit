@@ -1,0 +1,20 @@
+group=pwc-ui
+version=2.4.0-SNAPSHOT
+
+pwcGradlePluginVersion=2.1.2
+pwcCachingPluginVersion=1.0.1
+changelogPlugin=1.66
+# Nexus Configuration
+systemProp.NEXUS_URL=https://nexus.pwcv4.com
+systemProp.NEXUS_MVN_PUBLIC_URL=https://nexus.pwcv4.com/repository/maven-public/
+systemProp.NEXUS_MVN_RELEASES_URL=https://nexus.pwcv4.com/repository/maven-releases/
+systemProp.NEXUS_MVN_SNAPSHOTS_URL=https://nexus.pwcv4.com/repository/maven-snapshots/
+systemProp.NEXUS_USER=hps-user
+systemProp.NEXUS_PASSWORD=SjuVFa2NAaxr7UQPD3vH8Pn2
+
+# Docker Configuration
+systemProp.dockerRegistry=183w0151.gra7.container-registry.ovh.net/pwcv4
+systemProp.dockerFromImage=183w0151.gra7.container-registry.ovh.net/pwcv4/toolbox/pwc-java-base-image:java17
+systemProp.dockerLogin=hps-user
+systemProp.dockerPassword=uWz7^x0^D5VoLUw9
+systemProp.uiBuildImage=183w0151.gra7.container-registry.ovh.net/pwcv4/toolbox/pwc-cicd-ui:latest

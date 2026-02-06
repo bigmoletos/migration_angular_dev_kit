@@ -1,0 +1,10 @@
+{
+  "kiro.workspace.root": "c:\\repo_hps\\.kiro",
+  "kiro.specs.enabled": true,
+  "kiro.specs.path": "specs",
+  "kiro.hooks.enabled": true,
+  "kiro.hooks.path": "hooks",
+  "kiro.steering.enabled": true,
+  "kiro.steering.path": "steering",
+  "kiro.features.autoDiscovery": true
+}

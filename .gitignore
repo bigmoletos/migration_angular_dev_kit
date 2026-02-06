@@ -1,0 +1,42 @@
+# Repos Bitbucket (gérés séparément)
+pwc-ui-shared/
+pwc-ui/
+
+# Windows reserved names
+nul
+
+# Node modules
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Build outputs
+dist/
+build/
+*.tsbuildinfo
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+.kiro/temp/
+*.tmp
+*.log
+
+# Test results
+test-results/
+coverage/
+.nyc_output/
+
+# Environment
+.env
+.env.local
+.env.*.local

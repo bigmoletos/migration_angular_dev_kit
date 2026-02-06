@@ -1,0 +1,139 @@
+{
+  "version": "1.0",
+  "description": "Configuration MCP avec lazy loading et profils",
+  "lastUpdated": "2026-01-29",
+  
+  "defaultProfile": "minimal",
+  
+  "contextLimits": {
+    "maxMcpTokensPercent": 12,
+    "maxMcpTokens": 24000,
+    "warningPercent": 10
+  },
+  
+  "profiles": {
+    "minimal": {
+      "description": "Chargement minimal - routeur uniquement",
+      "servers": ["tool-router"],
+      "estimatedTokens": 2000
+    },
+    "migration": {
+      "description": "Outils pour migration Angular",
+      "servers": ["tool-router", "filesystem", "git"],
+      "estimatedTokens": 8000
+    },
+    "audit": {
+      "description": "Outils pour audit de code",
+      "servers": ["tool-router", "filesystem"],
+      "estimatedTokens": 5000
+    },
+    "devops": {
+      "description": "Outils DevOps complets",
+      "servers": ["tool-router", "filesystem", "git", "npm"],
+      "estimatedTokens": 12000
+    },
+    "full": {
+      "description": "Tous les outils - DEBUG UNIQUEMENT",
+      "servers": ["*"],
+      "estimatedTokens": 50000,
+      "warning": "⚠️ Utiliser uniquement pour debug - sature le contexte"
+    }
+  },
+  
+  "mcpServers": {
+    "tool-router": {
+      "description": "Routeur intelligent - trouve les outils nécessaires",
+      "tags": ["core", "routing", "discovery"],
+      "alwaysLoad": true,
+      "tokenEstimate": 1500,
+      "tools": ["find_tools", "list_categories", "load_toolset", "unload_toolset"],
+      "command": "uvx",
+      "args": ["mcp-dynamic-proxy"],
+      "env": {
+        "MCP_CONFIG_PATH": ".kiro/mcp/tools-catalog.json"
+      }
+    },
+    
+    "filesystem": {
+      "description": "Opérations fichiers locaux",
+      "tags": ["files", "code", "edit", "read", "write"],
+      "alwaysLoad": false,
+      "tokenEstimate": 3000,
+      "tools": ["read_file", "write_file", "list_directory", "search_files"],
+      "loadOn": {
+        "keywords": ["file", "read", "write", "edit", "code", "fichier"],
+        "filePatterns": ["*"]
+      },
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-server-filesystem"],
+      "env": {
+        "ALLOWED_PATHS": "./pwc-ui-shared-v4-ia,./pwc-ui-v4-ia,./docs_outils_ia"
+      }
+    },
+    
+    "git": {
+      "description": "Opérations Git",
+      "tags": ["git", "version", "commit", "branch", "diff"],
+      "alwaysLoad": false,
+      "tokenEstimate": 2500,
+      "tools": ["git_status", "git_log", "git_diff", "git_branch"],
+      "loadOn": {
+        "keywords": ["git", "commit", "branch", "merge", "diff", "log", "status"]
+      },
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-server-git"]
+    },
+    
+    "npm": {
+      "description": "Gestion packages NPM",
+      "tags": ["npm", "package", "dependency", "install"],
+      "alwaysLoad": false,
+      "tokenEstimate": 2000,
+      "tools": ["npm_install", "npm_outdated", "npm_audit"],
+      "loadOn": {
+        "keywords": ["npm", "package", "install", "dependency", "audit"]
+      },
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-server-npm"]
+    },
+    
+    "web-search": {
+      "description": "Recherche web et documentation",
+      "tags": ["search", "web", "documentation", "google"],
+      "alwaysLoad": false,
+      "tokenEstimate": 2000,
+      "loadOn": {
+        "keywords": ["search", "find", "documentation", "how to", "cherche", "google"]
+      },
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-server-brave-search"],
+      "env": {
+        "BRAVE_API_KEY": "${BRAVE_API_KEY}"
+      }
+    },
+    
+    "strands-orchestrator": {
+      "description": "Orchestration multi-agents stateful avec Strands Agent SDK",
+      "tags": ["orchestration", "multi-agent", "stateful", "workflow", "coordination"],
+      "alwaysLoad": false,
+      "tokenEstimate": 5000,
+      "tools": ["start_workflow", "resume_workflow", "get_status", "create_checkpoint", "rollback", "pause", "abort"],
+      "loadOn": {
+        "keywords": ["strands", "orchestrate", "multi-agent", "coordinate", "workflow", "resume", "checkpoint", "rollback"]
+      },
+      "command": "python3",
+      "args": ["-m", "strands.mcp_server"],
+      "env": {
+        "STRANDS_CONFIG": ".kiro/strands/config.json",
+        "STRANDS_STATE_PATH": ".kiro/state/strands-state.json",
+        "STRANDS_LOG_LEVEL": "INFO"
+      }
+    }
+  },
+  
+  "unloadRules": {
+    "unusedMessagesThreshold": 3,
+    "contextOverloadPercent": 80,
+    "protectedServers": ["tool-router"]
+  }
+}

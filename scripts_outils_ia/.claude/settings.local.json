@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wsl --list:*)",
+      "Bash(wsl -d Ubuntu bash -c \"cd /mnt/c/Users/franck.desmedt/dev/kiro/kirocli && ./install.sh\")",
+      "WebSearch",
+      "WebFetch(domain:kiro.dev)",
+      "WebFetch(domain:github.com)",
+      "Bash(curl:*)",
+      "WebFetch(domain:dev.to)",
+      "Bash(aws configure:*)",
+      "Bash(dir:*)"
+    ]
+  }
+}

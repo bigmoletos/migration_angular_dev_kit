@@ -1,0 +1,99 @@
+{
+  "version": "2.1",
+  "description": "Index des skills - SEUL ce fichier est chargé au démarrage",
+  "lastUpdated": "2026-01-29T15:00:00Z",
+  
+  "loadingStrategy": {
+    "mode": "lazy",
+    "maxSimultaneous": 2,
+    "unloadAfterMessages": 5,
+    "conflictResolution": "priority"
+  },
+  
+  "matchingConfig": {
+    "minConfidence": 0.6,
+    "requireMultipleKeywords": false,
+    "caseSensitive": false
+  },
+  
+  "skills": [
+    {
+      "name": "angular-migration",
+      "path": "angular-migration/SKILL.md",
+      "description": "Migration Angular 5→20 avec breaking changes et séquences par palier",
+      "keywords": ["migration", "angular", "ng update", "upgrade", "migrate", "palier", "version"],
+      "tokenEstimate": 8000,
+      "priority": 100,
+      "requires": ["rxjs-patterns"],
+      "mcpNeeds": ["filesystem", "git"]
+    },
+    
+    {
+      "name": "codemods-refactoring",
+      "path": "codemods-refactoring/SKILL.md",
+      "description": "Refactoring automatique avec jscodeshift, ts-morph, ng update itératif",
+      "keywords": ["codemod", "refactor", "refactoring", "jscodeshift", "ts-morph", "transform", "ast", "automated", "batch", "openrewrite"],
+      "tokenEstimate": 7000,
+      "priority": 90,
+      "requires": ["angular-migration"],
+      "mcpNeeds": ["filesystem"]
+    },
+    
+    {
+      "name": "strands-orchestration",
+      "path": "strands-orchestration/SKILL.md",
+      "description": "Orchestration multi-agents stateful avec Strands Agent SDK d'Amazon",
+      "keywords": ["strands", "orchestrate", "orchestration", "multi-agent", "coordinate", "workflow", "stateful", "resume", "checkpoint", "rollback"],
+      "tokenEstimate": 6000,
+      "priority": 95,
+      "requires": [],
+      "mcpNeeds": ["strands-orchestrator"]
+    },
+    
+    {
+      "name": "validation-formelle",
+      "path": "validation-formelle/SKILL.md",
+      "description": "Validation de types et invariants avec TypeScript strict, io-ts, zod (alternative à Coq)",
+      "keywords": ["validation", "formal", "proof", "preuve", "invariant", "type-safe", "io-ts", "zod", "strict", "runtime", "coq"],
+      "tokenEstimate": 5000,
+      "priority": 70,
+      "requires": [],
+      "mcpNeeds": ["filesystem"]
+    },
+    
+    {
+      "name": "code-audit",
+      "path": "code-audit/SKILL.md",
+      "description": "Audit qualité, sécurité et patterns du code TypeScript/Angular",
+      "keywords": ["audit", "quality", "security", "lint", "analyze", "review", "analyser", "qualité", "sécurité"],
+      "tokenEstimate": 5000,
+      "priority": 80,
+      "requires": [],
+      "mcpNeeds": ["filesystem"]
+    },
+    
+    {
+      "name": "rxjs-patterns",
+      "path": "rxjs-patterns/SKILL.md",
+      "description": "Patterns RxJS modernes et migration 5→6→7",
+      "keywords": ["rxjs", "observable", "subscribe", "pipe", "operator", "subscription", "subject"],
+      "tokenEstimate": 4000,
+      "priority": 70,
+      "requires": [],
+      "mcpNeeds": ["filesystem"]
+    }
+  ],
+  
+  "statistics": {
+    "totalSkills": 6,
+    "totalTokensIfAllLoaded": 35000,
+    "recommendedMaxLoaded": 2,
+    "contextBudgetPercent": 17.5
+  },
+  
+  "fallbackBehavior": {
+    "noMatch": "use_coordinator",
+    "multipleMatches": "use_priority",
+    "lowConfidence": "ask_confirmation"
+  }
+}

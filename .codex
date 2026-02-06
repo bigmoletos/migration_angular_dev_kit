@@ -1,0 +1,79 @@
+# Codex Configuration - Angular 5→20 Migration
+
+## Project Context
+Angular 5.2.0 → Angular 20 progressive migration
+- Library: pwc-ui-shared-v4-ia (migrate first)
+- App: pwc-ui-v4-ia (migrate second)
+
+## Critical Constraints
+
+### No Admin Rights
+- Cannot use sudo
+- Cannot install globally (npm install -g)
+- Use local npm installs only
+
+### Keep Repos Clean
+- Never create test/debug files in pwc-ui-shared-v4-ia/ or pwc-ui-v4-ia/
+- Use scripts_outils_ia/ for temporary files
+- Delete temp files after use
+
+### Document Everything
+Update docs_outils_ia/JOURNAL-COORDINATION.md daily:
+- Date and action
+- Results
+- Issues and solutions
+- Next steps
+
+### Test-Driven Development (TDD)
+1. Write test (red)
+2. Implement (green)
+3. Refactor (still green)
+4. Commit
+
+## Migration Strategy
+
+5→6→7→8 (Foundation)
+→ 9→10→11→12 (Ivy)
+→ 13→14→15 (Standalone)
+→ 16→17 (Signals)
+→ 18→19→20 (Modern)
+
+Order: pwc-ui-shared-v4-ia THEN pwc-ui-v4-ia
+
+## Best Practices
+
+- SOLID principles
+- Clean code
+- TypeScript strict mode
+- OnPush change detection
+- Unsubscribe from observables
+- Atomic git commits
+
+## File Locations
+
+✅ scripts_outils_ia/ - temporary scripts
+✅ docs_outils_ia/ - documentation
+❌ pwc-ui-shared-v4-ia/ - no temp files
+❌ pwc-ui-v4-ia/ - no temp files
+
+## Checklist Per Step
+
+- [ ] Write tests (TDD)
+- [ ] Update dependencies
+- [ ] Run tests (pass)
+- [ ] Build (success)
+- [ ] Update docs
+- [ ] Commit
+
+## Safe Commands
+
+```bash
+✅ npm install <package>
+✅ npm test / npm run build
+✅ git add/commit/push
+❌ npm install -g
+❌ sudo
+```
+
+---
+Version: 1.0.0 | 2026-02-03

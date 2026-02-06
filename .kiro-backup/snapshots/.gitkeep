@@ -1,0 +1,2 @@
+# Ce fichier permet de conserver le dossier snapshots dans Git
+# Les snapshots eux-mêmes sont ignorés par .gitignore

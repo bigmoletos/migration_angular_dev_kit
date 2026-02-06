@@ -1,0 +1,158 @@
+{
+  "version": "1.0",
+  "description": "Catalogue des outils pour le routeur MCP dynamique",
+  "lastUpdated": "2026-01-29",
+  
+  "categories": {
+    "file-operations": {
+      "displayName": "📁 Opérations Fichiers",
+      "description": "Lecture, écriture, recherche de fichiers",
+      "keywords": ["file", "read", "write", "edit", "create", "delete", "search", "fichier", "lire", "écrire"],
+      "servers": ["filesystem"],
+      "tokenCost": 3000,
+      "examples": [
+        "Lis le fichier package.json",
+        "Modifie le composant",
+        "Cherche les TODO dans le code"
+      ]
+    },
+    
+    "version-control": {
+      "displayName": "🔀 Contrôle de Version",
+      "description": "Git : commits, branches, diff, historique",
+      "keywords": ["git", "commit", "branch", "merge", "diff", "log", "status", "stash", "checkout"],
+      "servers": ["git"],
+      "tokenCost": 2500,
+      "examples": [
+        "Montre le status git",
+        "Liste les branches",
+        "Affiche le diff"
+      ]
+    },
+    
+    "package-management": {
+      "displayName": "📦 Gestion Packages",
+      "description": "NPM : installation, audit, mise à jour",
+      "keywords": ["npm", "package", "install", "dependency", "audit", "outdated", "update"],
+      "servers": ["npm"],
+      "tokenCost": 2000,
+      "examples": [
+        "npm audit",
+        "Quels packages sont obsolètes ?",
+        "Installe rxjs-compat"
+      ]
+    },
+    
+    "angular-specific": {
+      "displayName": "🅰️ Angular",
+      "description": "Outils spécifiques Angular : ng update, schematics",
+      "keywords": ["angular", "ng", "update", "schematic", "migration", "cli"],
+      "servers": ["filesystem", "npm"],
+      "tokenCost": 5000,
+      "examples": [
+        "ng update @angular/core",
+        "Migration vers Angular 6"
+      ]
+    },
+    
+    "documentation": {
+      "displayName": "📚 Documentation",
+      "description": "Recherche web, documentation officielle",
+      "keywords": ["doc", "search", "documentation", "api", "reference", "google", "cherche"],
+      "servers": ["web-search"],
+      "tokenCost": 2000,
+      "examples": [
+        "Cherche la doc de ViewChild",
+        "Comment faire un lazy loading ?"
+      ]
+    },
+    
+    "code-analysis": {
+      "displayName": "🔍 Analyse Code",
+      "description": "Audit, linting, détection de patterns",
+      "keywords": ["audit", "lint", "analyze", "quality", "security", "pattern"],
+      "servers": ["filesystem"],
+      "tokenCost": 3000,
+      "examples": [
+        "Audite le code",
+        "Trouve les console.log",
+        "Analyse la qualité"
+      ]
+    }
+  },
+  
+  "tools": {
+    "read_file": {
+      "category": "file-operations",
+      "description": "Lire le contenu d'un fichier",
+      "server": "filesystem",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": { "type": "string", "description": "Chemin du fichier" }
+        },
+        "required": ["path"]
+      }
+    },
+    "write_file": {
+      "category": "file-operations",
+      "description": "Écrire dans un fichier",
+      "server": "filesystem",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": { "type": "string" },
+          "content": { "type": "string" }
+        },
+        "required": ["path", "content"]
+      }
+    },
+    "git_status": {
+      "category": "version-control",
+      "description": "État du repository Git",
+      "server": "git"
+    },
+    "git_diff": {
+      "category": "version-control",
+      "description": "Différences entre commits/branches",
+      "server": "git"
+    },
+    "npm_audit": {
+      "category": "package-management",
+      "description": "Audit de sécurité des dépendances",
+      "server": "npm"
+    },
+    "web_search": {
+      "category": "documentation",
+      "description": "Recherche sur le web",
+      "server": "web-search"
+    }
+  },
+  
+  "routingRules": [
+    {
+      "pattern": "lis|lire|read|affiche|montre|contenu",
+      "suggestCategory": "file-operations"
+    },
+    {
+      "pattern": "git|commit|branch|merge|diff",
+      "suggestCategory": "version-control"
+    },
+    {
+      "pattern": "npm|package|install|dependency|audit",
+      "suggestCategory": "package-management"
+    },
+    {
+      "pattern": "angular|ng|migration|upgrade",
+      "suggestCategory": "angular-specific"
+    },
+    {
+      "pattern": "cherche|search|doc|documentation|comment",
+      "suggestCategory": "documentation"
+    },
+    {
+      "pattern": "audit|analyze|quality|lint|pattern",
+      "suggestCategory": "code-analysis"
+    }
+  ]
+}

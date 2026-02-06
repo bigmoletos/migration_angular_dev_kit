@@ -1,0 +1,238 @@
+# Configuration Claude - Migration Angular 5 → 20
+
+## Contexte du Projet
+
+**Objectif** : Migration progressive d'applications Angular 5.2.0 vers Angular 20
+**Repos concernés** :
+- `pwc-ui-shared-v4-ia` : Bibliothèque de composants partagés
+- `pwc-ui-v4-ia` : Application principale (dépend de pwc-ui-shared)
+
+**Technologies actuelles** :
+- Angular 5.2.0
+- RxJS 5.5.6
+- TypeScript 2.6.2
+- Zone.js 0.8.19
+
+**Cible** : Angular 20 + dernières versions compatibles
+
+## Contraintes Importantes
+
+### 🔒 Limitations Environnement
+- **PAS de droits administrateur** : Éviter toute commande nécessitant des privilèges élevés
+- **Workspace isolé** : Tous les scripts/tests dans `C:\repo_hps\scripts_outils_ia`
+- **Repos officiels propres** : Ne JAMAIS polluer pwc-ui* avec des fichiers de test/debug
+
+### 📝 Documentation Obligatoire
+- **Journal de bord** : `docs_outils_ia/JOURNAL-COORDINATION.md`
+  - Mise à jour QUOTIDIENNE pour tout changement significatif
+  - Format : Entrées chronologiques inversées (plus récent en haut)
+  - Inclure : Action, Résultat, Problèmes, Prochaine étape, Temps passé
+
+- **État migration** : `docs_outils_ia/ETAT-MIGRATION.md`
+  - Suivi de progression par palier (5→6→7...→20)
+  - Dashboard des statuts (✅ ⏳ ❌ 🔴)
+
+### 🎯 Méthodologie de Développement
+
+#### Test-Driven Development (TDD)
+1. **Red** : Écrire le test qui échoue
+2. **Green** : Implémenter le minimum pour passer le test
+3. **Refactor** : Améliorer le code en gardant les tests verts
+
+#### Bonnes Pratiques
+- **Code propre** : SOLID, DRY, KISS
+- **Commits atomiques** : Une fonctionnalité = un commit
+- **Revue systématique** : Relire avant de valider
+- **Gestion d'erreurs** : Toujours anticiper les cas limites
+
+### ⚡ Optimisation des Tokens
+
+#### Mode Stateful
+- Utiliser l'orchestrateur pour conserver le contexte entre interactions
+- Éviter de relire les mêmes fichiers plusieurs fois
+- Résumer les informations importantes pour les réutiliser
+
+#### Efficacité
+- Préférer les outils spécialisés (Task, Explore) aux commandes directes
+- Grouper les lectures/recherches en parallèle
+- Utiliser les skills pré-configurés quand disponibles
+
+#### Orchestration
+```
+Orchestrateur (stateful)
+    ├── Skill: Exploration (analyse codebase)
+    ├── Skill: Migration (upgrade Angular)
+    ├── Skill: Testing (TDD, validation)
+    └── Skill: Documentation (journal, rapports)
+```
+
+## Structure du Workspace
+
+```
+C:\repo_hps\
+├── pwc-ui-shared-v4-ia/        # Bibliothèque (NE PAS polluer)
+├── pwc-ui-v4-ia/               # Application (NE PAS polluer)
+├── scripts_outils_ia/          # Scripts temporaires/debug (OK pour tests)
+├── docs_outils_ia/             # Documentation projet
+│   ├── JOURNAL-COORDINATION.md # Journal de bord (MAJ quotidienne)
+│   ├── ETAT-MIGRATION.md       # Suivi progression
+│   ├── GUIDE-*.md              # Guides de référence
+│   └── ANALYSE-*.md            # Analyses techniques
+└── .claude                     # Ce fichier
+```
+
+## Stratégie de Migration
+
+### Approche Incrémentale (5 phases)
+
+**Phase 1** : Angular 5 → 8 (Foundation)
+- Paliers : 5.2.0 → 6 → 7 → 8
+- Focus : Mise à jour des APIs de base, HttpClient
+
+**Phase 2** : Angular 8 → 12 (Ivy)
+- Paliers : 8 → 9 → 10 → 11 → 12
+- Focus : Migration vers Ivy, optimisations
+
+**Phase 3** : Angular 12 → 15 (Standalone)
+- Paliers : 12 → 13 → 14 → 15
+- Focus : Composants standalone optionnels
+
+**Phase 4** : Angular 15 → 17 (Signals)
+- Paliers : 15 → 16 → 17
+- Focus : Introduction des Signals
+
+**Phase 5** : Angular 17 → 20 (Zoneless)
+- Paliers : 17 → 18 → 19 → 20
+- Focus : Mode zoneless, dernières optimisations
+
+### Ordre de Migration
+1. **D'abord pwc-ui-shared-v4-ia** (bibliothèque)
+2. **Ensuite pwc-ui-v4-ia** (application consommatrice)
+
+### Checklist par Palier
+- [ ] Audit des dépendances obsolètes
+- [ ] Tests unitaires passent (TDD)
+- [ ] Build sans erreur ni warning critique
+- [ ] Audit de sécurité (npm audit)
+- [ ] Mise à jour du journal de bord
+- [ ] Validation manuelle des fonctionnalités critiques
+- [ ] Commit avec message descriptif
+
+## Scripts Temporaires
+
+**Emplacement** : `scripts_outils_ia/` (pas dans les repos officiels !)
+
+### Cycle de vie
+1. Créer dans `scripts_outils_ia/`
+2. Utiliser pour tester/debugger
+3. **Supprimer après usage** (garder workspace propre)
+4. Si réutilisable → documenter dans `docs_outils_ia/`
+
+### Exemples autorisés
+```bash
+# Audit dependencies
+scripts_outils_ia/audit-deps.sh
+
+# Test migration step
+scripts_outils_ia/test-ng6-upgrade.js
+
+# Backup before upgrade
+scripts_outils_ia/backup-before-upgrade.sh
+```
+
+## Workflows Types
+
+### 1. Analyse de Dépendance
+```
+1. Explore → Identifier packages obsolètes
+2. Read → package.json des deux repos
+3. Bash → npm outdated (dans scripts_outils_ia)
+4. Edit → Documenter dans JOURNAL-COORDINATION.md
+```
+
+### 2. Migration d'un Palier
+```
+1. AskUserQuestion → Confirmer palier cible
+2. Bash → Backup des package.json
+3. Edit → Modifier package.json (shared d'abord)
+4. Bash → npm install (dans scripts_outils_ia/temp)
+5. Bash → npm test (TDD)
+6. Edit → Corriger erreurs identifiées
+7. Bash → npm run build
+8. TaskUpdate → Marquer palier complété
+9. Edit → MAJ JOURNAL-COORDINATION.md + ETAT-MIGRATION.md
+10. Bash → git commit (si validé)
+```
+
+### 3. Résolution de Problème
+```
+1. Grep → Chercher erreur/pattern
+2. Read → Lire fichiers concernés
+3. Task (Explore) → Comprendre contexte
+4. Write/Edit → Implémenter solution (TDD)
+5. Bash → Tester solution
+6. Edit → Documenter dans JOURNAL-COORDINATION.md
+```
+
+## Commandes à Éviter
+
+### ❌ Interdits (droits admin requis)
+```bash
+npm install -g <package>    # Global install
+sudo <command>              # Privilèges élevés
+chown / chmod               # Modification permissions système
+```
+
+### ⚠️ Attention (risque pollution repos)
+```bash
+# Dans pwc-ui* directement
+npm install <test-package>
+echo "test" > debug.log
+node test-script.js
+
+# ✅ À la place, utiliser scripts_outils_ia/
+```
+
+## Intégration avec d'Autres Outils IA
+
+### .cursorrules / .vibe / .gemini / etc.
+Ces fichiers partagent les mêmes principes :
+- Contexte projet (migration Angular)
+- Contraintes environnement (pas admin)
+- TDD et bonnes pratiques
+- Documentation obligatoire
+- Optimisation tokens
+
+### Coordination Multi-Outils
+- **Claude** : Orchestration, décisions complexes, documentation
+- **Cursor** : Édition code, refactoring, IDE
+- **Copilot** : Suggestions inline, complétion
+- **Autres** : Tâches spécialisées selon capacités
+
+## Checklist Avant Chaque Action
+
+- [ ] Action nécessite-t-elle des droits admin ? → Trouver alternative
+- [ ] Script/test va dans scripts_outils_ia/ (pas dans repos) ?
+- [ ] Journal de bord sera mis à jour après ?
+- [ ] Tests écrits AVANT implémentation (TDD) ?
+- [ ] Optimisation tokens (éviter lectures redondantes) ?
+- [ ] Changement significatif → MAJ ETAT-MIGRATION.md ?
+
+## Contact & Support
+
+**Documentation de référence** :
+- `docs_outils_ia/GUIDE-CONTEXT-OPTIMIZER.md` : Optimisation contexte
+- `docs_outils_ia/GUIDE-SKILLS-ACP-FINDTOOLS.md` : Utilisation skills
+- `docs_outils_ia/ANALYSE-ARCHITECTURE-REPO.md` : Architecture repos
+
+**En cas de blocage** :
+1. Documenter dans JOURNAL-COORDINATION.md (section "Blocages Actuels")
+2. Analyser avec Task (Explore) pour comprendre le contexte
+3. Proposer solutions alternatives (pas de droits admin)
+4. Demander validation utilisateur (AskUserQuestion)
+
+---
+
+**Version** : 1.0.0
+**Dernière mise à jour** : 2026-02-03
+**Mainteneur** : Migration Team
